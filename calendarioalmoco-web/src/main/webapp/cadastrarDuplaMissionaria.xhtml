@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="titulo">Sistema Calendario de almoço</ui:insert></title>
+	</h:head>
+	
+	<h:body>
+		<h:form>
+			<h:panelGrid id="cadastroDuplaMissionariaPanel" columns="2">
+				<p:outputLabel for="nomeInputText" value="Nome:" />
+				<p:inputText id="nomeInputText" value="#{cadastroDuplaMissionariaBean.duplaMissionaria.nome}" />
+				
+				<p:outputLabel for="emailInputText" value="Email:" />
+				<p:inputText id="emailInputText" value="#{cadastroDuplaMissionariaBean.duplaMissionaria.email}" />
+				
+				<c:forEach items="#{cadastroDuplaMissionariaBean.duplaMissionaria.telefones}" var="telefone" varStatus="size">
+				
+					
+					<p:outputLabel for="codigoAreaInputText" value="Código de Area" />
+					<p:inputText id="codigoAreaInputText" value="#{telefone.codigoArea}" />
+					
+					<p:outputLabel for="numeroInputText" value="Número" />
+					<p:inputText id="numeroInputText" value="#{telefone.numero}" />
+					
+					<p:outputLabel for="tipoTelefones" value="Tipo" />
+					<p:selectOneMenu id="tipoTelefones" value="#{telefone.tipoTelefone}" >
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroDuplaMissionariaBean.tipoTelefone}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
+					</p:selectOneMenu>
+						
+				</c:forEach>
+				
+				<p:outputLabel for="linkAddTelefone" value="Click para adicionar telefone:"/>
+				<p:commandLink id="linkAddTelefone" value="adicionar" actionListener="#{cadastroDuplaMissionariaBean.adicionarTelefone}"
+					update="cadastroDuplaMissionariaPanel" process="cadastroDuplaMissionariaPanel"/>
+		
+				<p:commandButton actionListener="#{cadastroDuplaMissionariaBean.salvar}" value="Salvar" />
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</html>
