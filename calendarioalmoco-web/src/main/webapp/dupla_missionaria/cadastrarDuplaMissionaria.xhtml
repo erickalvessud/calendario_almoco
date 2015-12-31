@@ -1,19 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/WEB-INF/template/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="titulo">Cadastro Missionários</ui:define>
 
-	<h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="titulo">Sistema Calendario de almoço</ui:insert></title>
-	</h:head>
-	
-	<h:body>
-		<h:form>
+	<ui:define name="corpo">
+		<h:form id="cadastrarDuplaMissionariaForm">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton  value="Salvar"
+						actionListener="#{cadastroDuplaMissionariaBean.salvar}" 
+						update=":cadastrarDuplaMissionariaForm"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:commandButton id="botaoCadastrar" value="Pesquisar" 
+						action="/dupla_missionaria/pesquisarDuplaMissionaria.xhtml?faces-redirect=true"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+		
 			<h:panelGrid id="cadastroDuplaMissionariaPanel" columns="2">
 				<p:outputLabel for="nomeInputText" value="Nome:" />
 				<p:inputText id="nomeInputText" value="#{cadastroDuplaMissionariaBean.duplaMissionaria.nome}" />
@@ -42,8 +51,7 @@
 				<p:commandLink id="linkAddTelefone" value="adicionar" actionListener="#{cadastroDuplaMissionariaBean.adicionarTelefone}"
 					update="cadastroDuplaMissionariaPanel" process="cadastroDuplaMissionariaPanel"/>
 		
-				<p:commandButton actionListener="#{cadastroDuplaMissionariaBean.salvar}" value="Salvar" />
 			</h:panelGrid>
 		</h:form>
-	</h:body>
-</html>
+	</ui:define>
+</ui:composition>

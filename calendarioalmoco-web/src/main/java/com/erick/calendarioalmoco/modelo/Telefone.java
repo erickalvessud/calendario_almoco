@@ -29,7 +29,7 @@ public class Telefone {
 	@Column(name = "tipo_telefone", nullable = false)
 	private TipoTelefone tipoTelefone;
 
-	@ManyToOne( optional = false, cascade = CascadeType.PERSIST,
+	@ManyToOne( optional = false, cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_dupla_missionaria")
 	private DuplaMissionaria duplaMissionaria;

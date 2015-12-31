@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisar Missionários</ui:define>
+	
+	<ui:define name="corpo">
+		<h:form id="pesquisarMissionariosForm">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton id="botaoCadastrar" value="Cadastrar" action="/dupla_missionaria/cadastrarDuplaMissionaria.xhtml?faces-redirect=true"/>	
+				</p:toolbarGroup>
+			</p:toolbar>
+		
+			<p:dataTable id="duplasMissionariasTable" value="#{pesquisaDuplaMissionariaBean.duplasMissionarias}" var="duplaMissionaria"
+				emptyMessage="Nenhum fabricante encontrado.">
+				<p:column headerText="Código" style="width: 10%; text-align: center">
+					<h:outputText value="#{duplaMissionaria.codigo}"/>
+				</p:column>
+				<p:column headerText="Nome" style="width: 50%; text-align: center">
+					<h:outputText value="#{duplaMissionaria.nome}"/>
+				</p:column>
+				<p:column headerText="Email" style="width: 30%; text-align: center">
+					<h:outputText value="#{duplaMissionaria.email}"/>
+				</p:column>
+				<p:column style="width: 10%; text-align: center">
+					<p:commandButton title="Remover"
+						icon="ui-icon-trash"
+						oncomplete="PF('exclusaoDialogo').show()"
+						process="@this" 
+						update=":pesquisarMissionariosForm:exclusaoConfirmDialog">
+						
+						<f:setPropertyActionListener value="#{duplaMissionaria}" 
+							target="#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog id="exclusaoConfirmDialog" 
+				widgetVar="exclusaoDialogo"
+				message="Tem certeza que deseja excluir o modelo 
+					#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada.nome}?"
+					header="Exclusão Dupla Missionária" severity="alert">
+				
+				<p:button value="Não" 
+					onclick="PF('exclusaoDialogo').hide(); return false;"/>
+				<p:commandButton value="Sim" 
+					update=":pesquisarMissionariosForm:duplasMissionariasTable"
+					onclick="PF('exclusaoDialogo').hide()"
+					action="#{pesquisaDuplaMissionariaBean.excluirDuplaMissionaria}"/>
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

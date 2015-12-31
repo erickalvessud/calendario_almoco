@@ -1,0 +1,8 @@
+@CHARSET "ISO-8859-1";
+
+/* Menu sistema inicio */
+.menu-principal {
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+}

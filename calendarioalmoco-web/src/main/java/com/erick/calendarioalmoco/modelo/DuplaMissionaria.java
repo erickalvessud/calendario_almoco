@@ -30,7 +30,7 @@ public class DuplaMissionaria implements Serializable{
 	@Column(name = "email")
 	private String email;
 	
-	@OneToMany(mappedBy = "duplaMissionaria", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "duplaMissionaria", cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
 	
 	public DuplaMissionaria(){

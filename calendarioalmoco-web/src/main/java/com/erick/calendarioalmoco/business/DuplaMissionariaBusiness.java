@@ -1,6 +1,7 @@
 package com.erick.calendarioalmoco.business;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -18,5 +19,14 @@ public class DuplaMissionariaBusiness implements Serializable {
 	@Transactional
 	public void salvarDuplaMissionaria(DuplaMissionaria duplaMissionaria){
 		this.duplaMissionariaDAO.salvarDuplaMissionaria(duplaMissionaria);
+	}
+	
+	public List<DuplaMissionaria> buscarTodasDuplasMissionarias(){
+		return this.duplaMissionariaDAO.buscarTodasDuplasMissionarias();
+	}
+	
+	@Transactional
+	public void excluirDuplaMissionaria(DuplaMissionaria duplaMissionaria){
+		this.duplaMissionariaDAO.removerDuplaMissionaria(duplaMissionaria);
 	}
 }
