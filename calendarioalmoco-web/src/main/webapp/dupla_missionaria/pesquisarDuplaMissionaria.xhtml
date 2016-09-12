@@ -1,57 +1,74 @@
-<ui:composition template="/WEB-INF/template/template.xhtml"
+<ui:composition template="/WEB-INF/template/layoutPadrao.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 	
-	<ui:define name="titulo">Pesquisar Missionários</ui:define>
+	<ui:define name="titulo">#{m['pesquisa.duplamissionaria.titulo']}</ui:define>
 	
 	<ui:define name="corpo">
-		<h:form id="pesquisarMissionariosForm">
-			<p:toolbar>
-				<p:toolbarGroup>
-					<p:commandButton id="botaoCadastrar" value="Cadastrar" action="/dupla_missionaria/cadastrarDuplaMissionaria.xhtml?faces-redirect=true"/>	
-				</p:toolbarGroup>
-			</p:toolbar>
 		
-			<p:dataTable id="duplasMissionariasTable" value="#{pesquisaDuplaMissionariaBean.duplasMissionarias}" var="duplaMissionaria"
-				emptyMessage="Nenhum fabricante encontrado.">
-				<p:column headerText="Código" style="width: 10%; text-align: center">
-					<h:outputText value="#{duplaMissionaria.codigo}"/>
-				</p:column>
-				<p:column headerText="Nome" style="width: 50%; text-align: center">
-					<h:outputText value="#{duplaMissionaria.nome}"/>
-				</p:column>
-				<p:column headerText="Email" style="width: 30%; text-align: center">
-					<h:outputText value="#{duplaMissionaria.email}"/>
-				</p:column>
-				<p:column style="width: 10%; text-align: center">
-					<p:commandButton title="Remover"
-						icon="ui-icon-trash"
-						oncomplete="PF('exclusaoDialogo').show()"
-						process="@this" 
-						update=":pesquisarMissionariosForm:exclusaoConfirmDialog">
-						
-						<f:setPropertyActionListener value="#{duplaMissionaria}" 
-							target="#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-			
-			<p:confirmDialog id="exclusaoConfirmDialog" 
-				widgetVar="exclusaoDialogo"
-				message="Tem certeza que deseja excluir o modelo 
-					#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada.nome}?"
-					header="Exclusão Dupla Missionária" severity="alert">
+		<h1>#{m['pesquisa.duplamissionaria.titulo']}</h1>
+	
+		<h:form id="pesquisarMissionariosForm">
+		
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<div>
+				<p:panelGrid style="width:100%;">
+					
+					<p:row>
+						<p:column>
+							<p:toolbar>
+								<p:toolbarGroup>
+									<p:commandButton id="botaoCadastrar" value="#{m['label.btn.cadastrar']}" action="/dupla_missionaria/cadastrarDuplaMissionaria.xhtml?faces-redirect=true"/>	
+								</p:toolbarGroup>
+							</p:toolbar>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:dataTable id="duplasMissionariasTable" value="#{pesquisaDuplaMissionariaBean.duplasMissionarias}" var="duplaMissionaria"
+								emptyMessage="#{m['mensagem.tabela.vazia']}">
+								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.codigo']}" style="width: 10%; text-align: center">
+									<h:outputText value="#{duplaMissionaria.codigo}"/>
+								</p:column>
+								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.nome']}" style="width: 50%; text-align: center">
+									<h:outputText value="#{duplaMissionaria.nome}"/>
+								</p:column>
+								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.email']}" style="width: 30%; text-align: center">
+									<h:outputText value="#{duplaMissionaria.email}"/>
+								</p:column>
+								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.acoes']}" style="width: 10%; text-align: center">
+									<p:commandButton title="#{m['duplamissionaria.tabela.coluna.remover']}"
+										icon="ui-icon-trash"
+										oncomplete="PF('exclusaoDialogo').show()"
+										process="@this" 
+										update=":pesquisarMissionariosForm:exclusaoConfirmDialog">
+										
+										<f:setPropertyActionListener value="#{duplaMissionaria}" 
+											target="#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
 				
-				<p:button value="Não" 
-					onclick="PF('exclusaoDialogo').hide(); return false;"/>
-				<p:commandButton value="Sim" 
-					update=":pesquisarMissionariosForm:duplasMissionariasTable"
-					onclick="PF('exclusaoDialogo').hide()"
-					action="#{pesquisaDuplaMissionariaBean.excluirDuplaMissionaria}"/>
-			</p:confirmDialog>
+				<p:confirmDialog id="exclusaoConfirmDialog" 
+					widgetVar="exclusaoDialogo"
+					message="#{m['pesquisa.dupla.missionaria.mensagem.excluir']}#{pesquisaDuplaMissionariaBean.duplaMissionariaSelecionada.nome}?"
+						header="#{m['pesquisa.dupla.missionaria.titulo.mensagem.excluir']}" severity="alert">
+					
+					<p:button value="#{m['label.nao']}" 
+						onclick="PF('exclusaoDialogo').hide(); return false;"/>
+					<p:commandButton value="#{m['label.sim']}" 
+						update=":pesquisarMissionariosForm:duplasMissionariasTable"
+						onclick="PF('exclusaoDialogo').hide()"
+						action="#{pesquisaDuplaMissionariaBean.excluirDuplaMissionaria}"/>
+				</p:confirmDialog>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

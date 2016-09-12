@@ -6,3 +6,10 @@
     padding: 0px !important;
     background: none !important;
 }
+
+#global {
+	margin: 0 auto !important;
+	width: 976px !important;
+	background-color: #FFF;
+	border: 0px;
+}
