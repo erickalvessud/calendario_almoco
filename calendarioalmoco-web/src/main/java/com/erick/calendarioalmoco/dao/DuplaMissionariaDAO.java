@@ -25,11 +25,11 @@ public class DuplaMissionariaDAO {
 	
 	@Transactional
 	public void removerDuplaMissionaria(DuplaMissionaria duplaMissionaria){
-		duplaMissionaria = this.entityManager.find(DuplaMissionaria.class, duplaMissionaria.getCodigo());
+		duplaMissionaria = this.entityManager.find(DuplaMissionaria.class, duplaMissionaria.getId());
 		try {
 			this.entityManager.remove(duplaMissionaria);
 		} catch (PersistenceException e) {
-			System.out.println("Não pode remover a dupla");
+			System.out.println("NÃ£o pode remover a dupla");
 		}
 	}
 }

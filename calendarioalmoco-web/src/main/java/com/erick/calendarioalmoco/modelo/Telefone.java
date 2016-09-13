@@ -1,6 +1,5 @@
 package com.erick.calendarioalmoco.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dupla_missionaria_telefone")
+@Table(name = "usuario_telefone")
 public class Telefone {
 
 	@Id
@@ -29,10 +28,17 @@ public class Telefone {
 	@Column(name = "tipo_telefone", nullable = false)
 	private TipoTelefone tipoTelefone;
 
-	@ManyToOne( optional = false, cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_dupla_missionaria")
-	private DuplaMissionaria duplaMissionaria;
+	@ManyToOne( optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCodigoArea() {
 		return codigoArea;
@@ -58,11 +64,11 @@ public class Telefone {
 		this.tipoTelefone = tipoTelefone;
 	}
 
-	public DuplaMissionaria getDuplaMissionaria() {
-		return duplaMissionaria;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setDuplaMissionaria(DuplaMissionaria duplaMissionaria) {
-		this.duplaMissionaria = duplaMissionaria;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

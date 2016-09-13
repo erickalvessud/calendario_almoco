@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 /**
- * Conflito entre anotações JSF e CDI
- * Fonte: Livro CDI Integre as dependências e contextos do seu código Java 
- * capítulo 8.2 - Relação entre CDI e JSF
+ * Conflito entre anotaï¿½ï¿½es JSF e CDI
+ * Fonte: Livro CDI Integre as dependï¿½ncias e contextos do seu cï¿½digo Java 
+ * capï¿½tulo 8.2 - Relaï¿½ï¿½o entre CDI e JSF
  */
 //import javax.faces.bean.ViewScoped; //nao funciona
 import javax.faces.view.ViewScoped; //funcinou!
@@ -41,7 +41,7 @@ public class CadastroDuplaMissionariaBean implements Serializable{
 	
 	public void adicionarTelefone(){
 		Telefone telefone = new Telefone();
-		telefone.setDuplaMissionaria(this.duplaMissionaria);
+		telefone.setUsuario(this.duplaMissionaria);
 		this.duplaMissionaria.getTelefones().add(telefone);
 	}
 	

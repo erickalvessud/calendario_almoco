@@ -32,7 +32,7 @@
 							<p:dataTable id="duplasMissionariasTable" value="#{pesquisaDuplaMissionariaBean.duplasMissionarias}" var="duplaMissionaria"
 								emptyMessage="#{m['mensagem.tabela.vazia']}">
 								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.codigo']}" style="width: 10%; text-align: center">
-									<h:outputText value="#{duplaMissionaria.codigo}"/>
+									<h:outputText value="#{duplaMissionaria.id}"/>
 								</p:column>
 								<p:column headerText="#{m['pesquisa.duplamissionaria.tabela.coluna.nome']}" style="width: 50%; text-align: center">
 									<h:outputText value="#{duplaMissionaria.nome}"/>
