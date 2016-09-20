@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.erick.calendarioalmoco.dao.DuplaMissionariaDAO;
-import com.erick.calendarioalmoco.modelo.DuplaMissionaria;
+import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.util.jpa.Transactional;
 
 public class DuplaMissionariaBusiness implements Serializable {
@@ -17,16 +17,16 @@ public class DuplaMissionariaBusiness implements Serializable {
 	public DuplaMissionariaDAO duplaMissionariaDAO;
 	
 	@Transactional
-	public void salvarDuplaMissionaria(DuplaMissionaria duplaMissionaria){
+	public void salvarDuplaMissionaria(DoubleMissionary duplaMissionaria){
 		this.duplaMissionariaDAO.salvarDuplaMissionaria(duplaMissionaria);
 	}
 	
-	public List<DuplaMissionaria> buscarTodasDuplasMissionarias(){
+	public List<DoubleMissionary> buscarTodasDuplasMissionarias(){
 		return this.duplaMissionariaDAO.buscarTodasDuplasMissionarias();
 	}
 	
 	@Transactional
-	public void excluirDuplaMissionaria(DuplaMissionaria duplaMissionaria){
+	public void excluirDuplaMissionaria(DoubleMissionary duplaMissionaria){
 		this.duplaMissionariaDAO.removerDuplaMissionaria(duplaMissionaria);
 	}
 }

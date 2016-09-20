@@ -14,9 +14,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.erick.calendarioalmoco.business.DuplaMissionariaBusiness;
-import com.erick.calendarioalmoco.modelo.DuplaMissionaria;
-import com.erick.calendarioalmoco.modelo.Telefone;
-import com.erick.calendarioalmoco.modelo.TipoTelefone;
+import com.erick.calendarioalmoco.modelo.DoubleMissionary;
+import com.erick.calendarioalmoco.modelo.Phone;
+import com.erick.calendarioalmoco.modelo.PhoneType;
 
 @Named
 @ViewScoped
@@ -24,14 +24,14 @@ public class CadastroDuplaMissionariaBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private DuplaMissionaria duplaMissionaria;
+	private DoubleMissionary duplaMissionaria;
 
 	@Inject
 	private DuplaMissionariaBusiness duplaMissionariaBusiness;
 	
 	@PostConstruct
 	public void init(){
-		this.duplaMissionaria = new DuplaMissionaria();
+		this.duplaMissionaria = new DoubleMissionary();
 	}
 	
 	public void salvar(){
@@ -40,23 +40,23 @@ public class CadastroDuplaMissionariaBean implements Serializable{
 	}
 	
 	public void adicionarTelefone(){
-		Telefone telefone = new Telefone();
+		Phone telefone = new Phone();
 		telefone.setUsuario(this.duplaMissionaria);
 		this.duplaMissionaria.getTelefones().add(telefone);
 	}
 	
 	public void limpar(){
-		this.duplaMissionaria = new DuplaMissionaria();
+		this.duplaMissionaria = new DoubleMissionary();
 	}
 	
-	public DuplaMissionaria getDuplaMissionaria() {
+	public DoubleMissionary getDuplaMissionaria() {
 		return duplaMissionaria;
 	}
-	public void setDuplaMissionaria(DuplaMissionaria duplaMissionaria) {
+	public void setDuplaMissionaria(DoubleMissionary duplaMissionaria) {
 		this.duplaMissionaria = duplaMissionaria;
 	}
 	
-	public TipoTelefone[] getTipoTelefone() {
-		return TipoTelefone.values();
+	public PhoneType[] getTipoTelefone() {
+		return PhoneType.values();
 	}
 }

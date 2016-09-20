@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.erick.calendarioalmoco.business.DuplaMissionariaBusiness;
-import com.erick.calendarioalmoco.modelo.DuplaMissionaria;
+import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 
 @Named
 @ViewScoped
@@ -19,9 +19,9 @@ public class PesquisaDuplaMissionariaBean implements Serializable{
 	@Inject
 	private DuplaMissionariaBusiness duplaMissionariaBusiness;
 	
-	private List<DuplaMissionaria> duplasMissionarias;
+	private List<DoubleMissionary> duplasMissionarias;
 	
-	private DuplaMissionaria duplaMissionariaSelecionada;
+	private DoubleMissionary duplaMissionariaSelecionada;
 
 	@PostConstruct
 	public void init(){
@@ -33,15 +33,15 @@ public class PesquisaDuplaMissionariaBean implements Serializable{
 		this.duplasMissionarias.remove(this.duplaMissionariaSelecionada);
 	}
 
-	public List<DuplaMissionaria> getDuplasMissionarias() {
+	public List<DoubleMissionary> getDuplasMissionarias() {
 		return duplasMissionarias;
 	}
 	
-	public DuplaMissionaria getDuplaMissionariaSelecionada() {
+	public DoubleMissionary getDuplaMissionariaSelecionada() {
 		return duplaMissionariaSelecionada;
 	}
 
-	public void setDuplaMissionariaSelecionada(DuplaMissionaria duplaMissionariaSelecionada) {
+	public void setDuplaMissionariaSelecionada(DoubleMissionary duplaMissionariaSelecionada) {
 		this.duplaMissionariaSelecionada = duplaMissionariaSelecionada;
 	}
 

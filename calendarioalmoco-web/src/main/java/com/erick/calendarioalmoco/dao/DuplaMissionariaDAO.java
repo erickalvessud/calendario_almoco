@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
-import com.erick.calendarioalmoco.modelo.DuplaMissionaria;
+import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.util.jpa.Transactional;
 
 public class DuplaMissionariaDAO {
@@ -14,18 +14,18 @@ public class DuplaMissionariaDAO {
 	@Inject
 	private EntityManager entityManager;
 	
-	public void salvarDuplaMissionaria(DuplaMissionaria duplaMissionaria){
+	public void salvarDuplaMissionaria(DoubleMissionary duplaMissionaria){
 		
 		this.entityManager.persist(duplaMissionaria);
 	}
 	
-	public List<DuplaMissionaria> buscarTodasDuplasMissionarias(){
-		return this.entityManager.createQuery("FROM DuplaMissionaria", DuplaMissionaria.class).getResultList();
+	public List<DoubleMissionary> buscarTodasDuplasMissionarias(){
+		return this.entityManager.createQuery("FROM DuplaMissionaria", DoubleMissionary.class).getResultList();
 	}
 	
 	@Transactional
-	public void removerDuplaMissionaria(DuplaMissionaria duplaMissionaria){
-		duplaMissionaria = this.entityManager.find(DuplaMissionaria.class, duplaMissionaria.getId());
+	public void removerDuplaMissionaria(DoubleMissionary duplaMissionaria){
+		duplaMissionaria = this.entityManager.find(DoubleMissionary.class, duplaMissionaria.getDoubleMissionaryId());
 		try {
 			this.entityManager.remove(duplaMissionaria);
 		} catch (PersistenceException e) {
