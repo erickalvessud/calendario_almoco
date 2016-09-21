@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 import org.slf4j.Logger;
 
 import com.erick.calendarioalmoco.exception.BusinessException;
+import com.erick.calendarioalmoco.util.jpa.Transactional;
 
 /**
  * Abstract class which return a DAO with gereric methods for all its DAOs
@@ -62,6 +63,7 @@ public abstract class GenericDAO<E> {
 	 * @throws BusinessException
 	 *      If a exception occurs while the process.
 	 */
+	@Transactional
 	public void save(E entity) throws BusinessException {
 		try {
 			this.entityManager.merge(entity);
@@ -78,6 +80,7 @@ public abstract class GenericDAO<E> {
 	 * @throws BusinessException
 	 *      If a exception occurs while the process.
 	 */
+	@Transactional
 	public void remove(E entity) throws BusinessException {
 		try {
 			entity = this.entityManager.merge(entity);

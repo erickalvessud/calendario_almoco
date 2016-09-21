@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +36,8 @@ public abstract class User implements Serializable{
 	
 	protected String email;
 	
-	@Column(name = "user_type", length = 1)
-	@Enumerated
+	@Column(name = "user_type", length = 50)
+	@Enumerated(EnumType.STRING)
 	protected UserType userType;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -2,12 +2,15 @@ package com.erick.calendarioalmoco.modelo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +20,16 @@ public class Family {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "family_id")
-	protected Long familyId;
+	private Long familyId;
+	
+	@Column(name = "name", length = 255, nullable = false)
+	private String name;
 	
 	private String address;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "id_family_available_weekdays")
+	private FamilyAvailableWeekdays familyAvailableWeekdays;
 	
 	@OneToMany(mappedBy = "family")
 	private List<ChurchMember> churchMembers;
@@ -39,6 +49,20 @@ public class Family {
 	}
 
 	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
 	 * @return the address
 	 */
 	public String getAddress() {
@@ -53,6 +77,20 @@ public class Family {
 	}
 
 	/**
+	 * @return the familyAvailableWeekdays
+	 */
+	public FamilyAvailableWeekdays getFamilyAvailableWeekdays() {
+		return familyAvailableWeekdays;
+	}
+
+	/**
+	 * @param familyAvailableWeekdays the familyAvailableWeekdays to set
+	 */
+	public void setFamilyAvailableWeekdays(FamilyAvailableWeekdays familyAvailableWeekdays) {
+		this.familyAvailableWeekdays = familyAvailableWeekdays;
+	}
+
+	/**
 	 * @return the churchMembers
 	 */
 	public List<ChurchMember> getChurchMembers() {
@@ -64,5 +102,36 @@ public class Family {
 	 */
 	public void setChurchMembers(List<ChurchMember> churchMembers) {
 		this.churchMembers = churchMembers;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((familyId == null) ? 0 : familyId.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Family other = (Family) obj;
+		if (familyId == null) {
+			if (other.familyId != null)
+				return false;
+		} else if (!familyId.equals(other.familyId))
+			return false;
+		return true;
 	}
 }

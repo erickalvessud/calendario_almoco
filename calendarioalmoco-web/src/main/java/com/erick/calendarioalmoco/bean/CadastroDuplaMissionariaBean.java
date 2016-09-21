@@ -40,9 +40,9 @@ public class CadastroDuplaMissionariaBean implements Serializable{
 	}
 	
 	public void adicionarTelefone(){
-		Phone telefone = new Phone();
-		telefone.setUsuario(this.duplaMissionaria);
-		this.duplaMissionaria.getTelefones().add(telefone);
+//		Phone telefone = new Phone();
+//		telefone.setUsuario(this.duplaMissionaria);
+//		this.duplaMissionaria.getTelefones().add(telefone);
 	}
 	
 	public void limpar(){
