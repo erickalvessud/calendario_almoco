@@ -1,5 +1,8 @@
 package com.erick.calendarioalmoco.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +43,33 @@ public class FamilyAvailableWeekdays {
 	
 	@OneToOne(mappedBy = "familyAvailableWeekdays")
 	private Family family;
+	
+	public List<Integer> getAvailableWeekdays(){
+		List<Integer> availableWeekdays = new ArrayList<>();
+		
+		if (this.sunday == 1) {
+			availableWeekdays.add(1);
+		}
+		if (this.monday == 1) {
+			availableWeekdays.add(2);
+		}
+		if (this.tuesday == 1) {
+			availableWeekdays.add(3);
+		}
+		if (this.wednesday == 1) {
+			availableWeekdays.add(4);
+		}
+		if (this.thursday == 1) {
+			availableWeekdays.add(5);
+		}
+		if (this.friday == 1) {
+			availableWeekdays.add(6);
+		}
+		if (this.saturday == 1) {
+			availableWeekdays.add(7);
+		}
+		return availableWeekdays;
+	}
 
 	/**
 	 * @return the idFamilyAvailableWeekdays

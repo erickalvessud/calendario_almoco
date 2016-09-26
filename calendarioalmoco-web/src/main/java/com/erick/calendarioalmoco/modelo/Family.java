@@ -33,6 +33,9 @@ public class Family {
 	
 	@OneToMany(mappedBy = "family")
 	private List<ChurchMember> churchMembers;
+	
+	@OneToMany(mappedBy = "family")
+	private List<Schedule> schedules;
 
 	/**
 	 * @return the familyId
