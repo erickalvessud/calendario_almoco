@@ -1,6 +1,7 @@
 package com.erick.calendarioalmoco.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -65,6 +66,9 @@ public class DoubleMissionary implements Serializable{
 	 * @return the schedules
 	 */
 	public List<Schedule> getSchedules() {
+		if (this.schedules == null){
+			this.schedules = new ArrayList<>();
+		}
 		return schedules;
 	}
 

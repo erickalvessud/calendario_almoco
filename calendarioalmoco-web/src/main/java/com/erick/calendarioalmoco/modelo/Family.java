@@ -1,5 +1,6 @@
 package com.erick.calendarioalmoco.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,10 +32,10 @@ public class Family {
 	@JoinColumn(name = "id_family_available_weekdays")
 	private FamilyAvailableWeekdays familyAvailableWeekdays;
 	
-	@OneToMany(mappedBy = "family")
+	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
 	private List<ChurchMember> churchMembers;
 	
-	@OneToMany(mappedBy = "family")
+	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
 	private List<Schedule> schedules;
 
 	/**
@@ -105,6 +106,23 @@ public class Family {
 	 */
 	public void setChurchMembers(List<ChurchMember> churchMembers) {
 		this.churchMembers = churchMembers;
+	}
+
+	/**
+	 * @return the schedules
+	 */
+	public List<Schedule> getSchedules() {
+		if (this.schedules == null) {
+			this.schedules = new ArrayList<>();
+		}
+		return schedules;
+	}
+
+	/**
+	 * @param schedules the schedules to set
+	 */
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
 	}
 
 	/* (non-Javadoc)

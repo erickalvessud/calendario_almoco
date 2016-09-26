@@ -42,6 +42,10 @@ public class ScheduleBusiness implements Serializable{
 			schedule.setDate(calendar.getTime());
 			schedule.setFamily(family);
 			schedule.setDoubleMissionary(doubleMissionary);
+			
+			family.getSchedules().add(schedule);
+			doubleMissionary.getSchedules().add(schedule);
+			
 			this.scheduleDAO.save(schedule);
 		} else {
 			throw new BusinessException("Day of week is not compatible with the day registed for this family");
