@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "missionary_duo")
+@Table(name = "double_missionary")
 public class DoubleMissionary implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -23,10 +24,10 @@ public class DoubleMissionary implements Serializable{
 	@Column(name = "double_missionary_id")
 	private Long doubleMissionaryId;
 	
-	@OneToMany(mappedBy = "doubleMissionary")
+	@OneToMany(mappedBy = "doubleMissionary", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Missionary> missionaries;
 	
-	@OneToMany(mappedBy = "doubleMissionary")
+	@OneToMany(mappedBy = "doubleMissionary", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Schedule> schedules;
 
 	public DoubleMissionary(){

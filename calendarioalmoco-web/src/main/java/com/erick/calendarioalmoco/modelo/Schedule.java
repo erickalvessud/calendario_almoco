@@ -27,11 +27,11 @@ public class Schedule{
 	@Column(name = "date")
 	private Date date;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne
 	@JoinColumn(name = "family_id", referencedColumnName = "family_id", nullable = false)
 	private Family family;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne
 	@JoinColumn(name = "double_missionary_id", referencedColumnName = "double_missionary_id", nullable = false)
 	private DoubleMissionary doubleMissionary;
 

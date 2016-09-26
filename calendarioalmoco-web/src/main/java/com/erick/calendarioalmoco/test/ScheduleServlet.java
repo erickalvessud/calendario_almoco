@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.erick.calendarioalmoco.business.ScheduleBusiness;
+import com.erick.calendarioalmoco.dao.DoubleMissionaryDAO;
 import com.erick.calendarioalmoco.dao.FamilyDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.ChurchMember;
@@ -30,6 +31,9 @@ public class ScheduleServlet extends HttpServlet {
       
 	@Inject
 	private FamilyDAO familyDAO;
+	
+	@Inject
+	private DoubleMissionaryDAO doubleMissionaryDAO;
 	
 	@Inject
 	private ScheduleBusiness scheduleBusiness;
@@ -109,6 +113,13 @@ public class ScheduleServlet extends HttpServlet {
 		missionaries.add(missionary2);
 		
 		doubleMissionary.setMissionaries(missionaries);
+		
+		try {
+			doubleMissionaryDAO.save(doubleMissionary);
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			this.scheduleBusiness.saveSchedule(Calendar.getInstance(), family, doubleMissionary);
