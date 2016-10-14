@@ -18,9 +18,23 @@ public class Missionary extends User {
 	@ManyToOne
 	@JoinColumn(name = "double_missionary_id", referencedColumnName = "double_missionary_id")
 	private DoubleMissionary doubleMissionary;
-	
+
 	public Missionary(){
 		super();
 		super.userType = UserType.MISSIONARY;
+	}
+	
+	/**
+	 * @return the doubleMissionary
+	 */
+	public DoubleMissionary getDoubleMissionary() {
+		return doubleMissionary;
+	}
+
+	/**
+	 * @param doubleMissionary the doubleMissionary to set
+	 */
+	public void setDoubleMissionary(DoubleMissionary doubleMissionary) {
+		this.doubleMissionary = doubleMissionary;
 	}
 }

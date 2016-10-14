@@ -13,42 +13,101 @@ import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
 import com.erick.calendarioalmoco.modelo.Schedule;
 
+/**
+ * This class manages all business rules for lunch schedule.
+ * @author Erick Alves
+ */
 public class ScheduleBusiness implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	public ScheduleDAO scheduleDAO;
+	private ScheduleDAO scheduleDAO;
 
-	public void saveSchedule(Calendar calendar, 
-			Family family, DoubleMissionary doubleMissionary) throws BusinessException{
-		if (calendar == null || family == null || doubleMissionary == null) {
+	/**
+	 * Save a schedule of lunch. This method returns without do nothing if any
+	 * parameters passed to it was null.
+	 * 
+	 * @param scheduleDate
+	 *            - Date to the lunch.
+	 * @param family
+	 *            - Family who will offer the lunch.
+	 * @param doubleMissionary
+	 *            - Double missionary who this lunch is schedule to.
+	 * @throws BusinessException
+	 *             There are two cases that this method can throws a
+	 *             {@link BusinessException}:
+	 *             <ul>
+	 *             <li>If the day of week for this schedule date is a day that
+	 *             was not registered for this family.</li>
+	 *             <li>If the schedule date is less than the current date.</li>
+	 *             </ul>
+	 */
+	public void saveSchedule(Calendar scheduleDate, Family family, DoubleMissionary doubleMissionary)
+			throws BusinessException {
+		if (scheduleDate == null || family == null || doubleMissionary == null) {
 			return;
 		}
-		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
-		List<Integer> availableWeekdays = familyAvailableWeekdays.getAvailableWeekdays();
-		
-		boolean isFamilyAvailableWeekdays = false;
-		
-		for (Integer availableWeekday : availableWeekdays) {
-			if (availableWeekday == dayOfWeek) {
-				isFamilyAvailableWeekdays = true;
-			}
+
+		if (!this.isValidScheduleDate(scheduleDate)) {
+			throw new BusinessException("Desired date for schedule cannot be less than current date");
 		}
-		
-		if (isFamilyAvailableWeekdays) {
+
+		int dayOfWeek = scheduleDate.get(Calendar.DAY_OF_WEEK);
+		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
+
+		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
 			Schedule schedule = new Schedule();
-			schedule.setDate(calendar.getTime());
+			schedule.setDate(scheduleDate.getTime());
 			schedule.setFamily(family);
 			schedule.setDoubleMissionary(doubleMissionary);
-			
+
 			family.getSchedules().add(schedule);
 			doubleMissionary.getSchedules().add(schedule);
-			
+
 			this.scheduleDAO.save(schedule);
 		} else {
 			throw new BusinessException("Day of week is not compatible with the day registed for this family");
 		}
+	}
+	
+	/**
+	 * Validade if this date is greater than current date.
+	 * 
+	 * @param scheduleDate
+	 *            - Date which desire to validate.
+	 * @return true if this date is greater than current date or false
+	 *         otherwise.
+	 */
+	private boolean isValidScheduleDate(Calendar scheduleDate){
+		long desiredDate = scheduleDate.getTimeInMillis();
+		long currentDate = Calendar.getInstance().getTimeInMillis();
+
+		return desiredDate > currentDate;
+	}
+	
+	/**
+	 * Validate if this day of week has in the list of family available days of
+	 * week.
+	 * 
+	 * @param dayOfWeek
+	 *            - Day of week which is desired to schedule the lunch.
+	 * @param familyAvailableWeekdays
+	 *            - Family available days of week.
+	 * @return true if this passed day of week has in the list of family
+	 *         available days of week or false otherwise.
+	 */
+	private boolean isFamilyAvailableWeekdays(int dayOfWeek, 
+			FamilyAvailableWeekdays familyAvailableWeekdays) {
+		if (familyAvailableWeekdays != null) {
+			List<Integer> availableWeekdays = familyAvailableWeekdays
+					.getAvailableWeekdays();
+			for (Integer availableWeekday : availableWeekdays) {
+				if (availableWeekday == dayOfWeek) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -3,6 +3,7 @@ package com.erick.calendarioalmoco.test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -105,9 +106,11 @@ public class ScheduleServlet extends HttpServlet {
 		
 		missionary1.setName("Elder X");
 		missionary1.setEmail("x@g.com");
+		missionary1.setDoubleMissionary(doubleMissionary);
 		
 		missionary2.setName("Elder Z");
 		missionary2.setEmail("z@g.com");
+		missionary2.setDoubleMissionary(doubleMissionary);
 		
 		missionaries.add(missionary1);
 		missionaries.add(missionary2);
@@ -122,7 +125,9 @@ public class ScheduleServlet extends HttpServlet {
 		}
 		
 		try {
-			this.scheduleBusiness.saveSchedule(Calendar.getInstance(), family, doubleMissionary);
+			Calendar desiredDate = Calendar.getInstance();
+			desiredDate.set(2016, 11, 5);
+			this.scheduleBusiness.saveSchedule(desiredDate, family, doubleMissionary);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
