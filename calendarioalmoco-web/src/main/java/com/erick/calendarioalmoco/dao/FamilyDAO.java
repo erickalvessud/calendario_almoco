@@ -18,4 +18,5 @@ public class FamilyDAO extends GenericDAO<Family> {
 	protected Class<Family> getEntityClass() {
 		return Family.class;
 	}
+	
 }

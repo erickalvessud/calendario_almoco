@@ -52,7 +52,12 @@ public class ScheduleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		saveSchedule();
+		try {
+			saveSchedule();
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -63,21 +68,21 @@ public class ScheduleServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public void saveSchedule(){
+	public void saveSchedule() throws BusinessException{
 		Family family = new Family();
-		family.setName("Silva's family");
-		family.setAddress("R. A, 25");
+		family.setName("Santos's family");
+		family.setAddress("R. Costa Filho, 25");
 		
 		List<ChurchMember> churchMembers = new ArrayList<>();
 		ChurchMember member1 = new ChurchMember();
 		ChurchMember member2 = new ChurchMember();
 		
-		member1.setName("Joao");
-		member1.setEmail("j@g.com");
+		member1.setName("Mario");
+		member1.setEmail("mario@g.com");
 		member1.setFamily(family);
 
-		member2.setName("Maria");
-		member2.setEmail("m@g.com");
+		member2.setName("Regina");
+		member2.setEmail("regina@g.com");
 		member2.setFamily(family);
 		
 		churchMembers.add(member1);
@@ -91,12 +96,12 @@ public class ScheduleServlet extends HttpServlet {
 		
 		family.setFamilyAvailableWeekdays(familyAvailableWeekdays);
 		
-		try {
-			familyDAO.save(family);
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		this.familyDAO.save(family);
+		
+		
+		List<Family> families = this.familyDAO.findAll();
+		
 		
 		DoubleMissionary doubleMissionary = new DoubleMissionary();
 		
@@ -104,12 +109,12 @@ public class ScheduleServlet extends HttpServlet {
 		Missionary missionary1 = new Missionary();
 		Missionary missionary2 = new Missionary();
 		
-		missionary1.setName("Elder X");
-		missionary1.setEmail("x@g.com");
+		missionary1.setName("Elder Lucas");
+		missionary1.setEmail("lucas@g.com");
 		missionary1.setDoubleMissionary(doubleMissionary);
 		
-		missionary2.setName("Elder Z");
-		missionary2.setEmail("z@g.com");
+		missionary2.setName("Elder Erick");
+		missionary2.setEmail("erick@g.com");
 		missionary2.setDoubleMissionary(doubleMissionary);
 		
 		missionaries.add(missionary1);
@@ -117,20 +122,14 @@ public class ScheduleServlet extends HttpServlet {
 		
 		doubleMissionary.setMissionaries(missionaries);
 		
-		try {
-			doubleMissionaryDAO.save(doubleMissionary);
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		doubleMissionaryDAO.save(doubleMissionary);
 		
-		try {
-			Calendar desiredDate = Calendar.getInstance();
-			desiredDate.set(2016, 11, 5);
-			this.scheduleBusiness.saveSchedule(desiredDate, family, doubleMissionary);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<DoubleMissionary> doubleMissionaries = doubleMissionaryDAO.findAll();
+	
+	
+		Calendar desiredDate = Calendar.getInstance();
+		desiredDate.set(2016, 11, 5);
+		this.scheduleBusiness.saveSchedule(desiredDate, families.get(0), doubleMissionaries.get(0));
+
 	}
 }
