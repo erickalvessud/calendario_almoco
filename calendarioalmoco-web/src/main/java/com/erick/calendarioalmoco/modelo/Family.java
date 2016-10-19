@@ -36,7 +36,7 @@ public class Family {
 	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
 	private List<ChurchMember> churchMembers;
 	
-	@OneToMany(mappedBy = "family", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
 	private List<Schedule> schedules;
 
 	/**

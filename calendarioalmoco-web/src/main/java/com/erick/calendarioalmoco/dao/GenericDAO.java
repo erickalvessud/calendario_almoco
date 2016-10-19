@@ -42,54 +42,31 @@ public abstract class GenericDAO<E> {
 	 *      - Identifier of an Entity.
 	 * @return
 	 *      - A list of a entity which this identifier belongs to.
-	 * @throws BusinessException
-	 *      If a exception occurs while the process.
 	 */
-	public E findById(Object id) throws BusinessException {
-		E entity = null;
-		try {
-			entity = this.entityManager.find(this.getEntityClass(), id) ;
-		} catch (IllegalArgumentException e) {
-			this.logger.error(e.getMessage(), e);
-			throw new BusinessException("Consulta não pode ser realizada");
-		}
-		return entity;
+	public E findById(Object id) {
+		return this.entityManager.find(this.getEntityClass(), id) ;
 	}
 	
 	/**
 	 * Save a entity in the database.
 	 * @param entity
 	 *      - Entity to persistent.
-	 * @throws BusinessException
-	 *      If a exception occurs while the process.
 	 */
 	@Transactional
-	public void save(E entity) throws BusinessException {
-		try {
-			this.entityManager.merge(entity);
-		} catch (PersistenceException | IllegalArgumentException e) {
-			this.logger.error(e.getMessage(), e);
-			throw new BusinessException("Dados não puderam ser salvos");
-		}
+	public E save(E entity) {
+		return this.entityManager.merge(entity);
 	}
 	
 	/**
 	 * Delete a entity from the database.
 	 * @param entity
 	 *      - Entity to remove.
-	 * @throws BusinessException
-	 *      If a exception occurs while the process.
 	 */
 	@Transactional
-	public void remove(E entity) throws BusinessException {
-		try {
-			entity = this.entityManager.merge(entity);
-			this.entityManager.remove(entity);
-			this.entityManager.flush();
-		} catch (PersistenceException | IllegalArgumentException e) {
-			this.logger.error(e.getMessage(), e);
-			throw new BusinessException("Dados não puderam ser removidos. Causa: " + e.getMessage());
-		}
+	public void remove(E entity){
+		entity = this.entityManager.merge(entity);
+		this.entityManager.remove(entity);
+		this.entityManager.flush();
 	}
 	
 	/**

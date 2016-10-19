@@ -2,6 +2,7 @@ package com.erick.calendarioalmoco.business;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class ScheduleBusiness implements Serializable{
 	 * Save a schedule of lunch. This method returns without do nothing if any
 	 * parameters passed to it was null.
 	 * 
-	 * @param scheduleDate
+	 * @param date
 	 *            - Date to the lunch.
 	 * @param family
 	 *            - Family who will offer the lunch.
@@ -43,22 +44,26 @@ public class ScheduleBusiness implements Serializable{
 	 *             <li>If the schedule date is less than the current date.</li>
 	 *             </ul>
 	 */
-	public void saveSchedule(Calendar scheduleDate, Family family, DoubleMissionary doubleMissionary)
+	public void saveSchedule(Date date, Family family, DoubleMissionary doubleMissionary)
 			throws BusinessException {
-		if (scheduleDate == null || family == null || doubleMissionary == null) {
+		if (date == null || family == null || doubleMissionary == null) {
 			return;
 		}
+		
+		Calendar scheduleDate = Calendar.getInstance();
+		scheduleDate.setTime(date);
 
 		if (!this.isValidScheduleDate(scheduleDate)) {
 			throw new BusinessException("Desired date for schedule cannot be less than current date");
 		}
 
 		int dayOfWeek = scheduleDate.get(Calendar.DAY_OF_WEEK);
+		
 		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
 
 		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
 			Schedule schedule = new Schedule();
-			schedule.setDate(scheduleDate.getTime());
+			schedule.setDate(date);
 			schedule.setFamily(family);
 			schedule.setDoubleMissionary(doubleMissionary);
 

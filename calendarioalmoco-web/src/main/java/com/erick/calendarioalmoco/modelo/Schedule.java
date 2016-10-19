@@ -27,7 +27,7 @@ public class Schedule{
 	@Column(name = "date")
 	private Date date;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne
 	@JoinColumn(name = "family_id", referencedColumnName = "family_id", nullable = false)
 	private Family family;
 	

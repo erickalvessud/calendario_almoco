@@ -1,6 +1,9 @@
 package com.erick.calendarioalmoco.test;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,19 +73,19 @@ public class ScheduleServlet extends HttpServlet {
 
 	public void saveSchedule() throws BusinessException{
 		Family family = new Family();
-		family.setName("Santos's family");
-		family.setAddress("R. Costa Filho, 25");
+		family.setName("Smith's family");
+		family.setAddress("R. Zian, 5");
 		
 		List<ChurchMember> churchMembers = new ArrayList<>();
 		ChurchMember member1 = new ChurchMember();
 		ChurchMember member2 = new ChurchMember();
 		
-		member1.setName("Mario");
-		member1.setEmail("mario@g.com");
+		member1.setName("Joseph");
+		member1.setEmail("joseph@g.com");
 		member1.setFamily(family);
 
-		member2.setName("Regina");
-		member2.setEmail("regina@g.com");
+		member2.setName("Emma");
+		member2.setEmail("emma@g.com");
 		member2.setFamily(family);
 		
 		churchMembers.add(member1);
@@ -91,16 +94,12 @@ public class ScheduleServlet extends HttpServlet {
 		family.setChurchMembers(churchMembers);
 		
 		FamilyAvailableWeekdays familyAvailableWeekdays = new FamilyAvailableWeekdays();
-		familyAvailableWeekdays.setSunday(1);
-		familyAvailableWeekdays.setMonday(1);
+		familyAvailableWeekdays.setSaturday(1);
 		
 		family.setFamilyAvailableWeekdays(familyAvailableWeekdays);
 		
 		
-		this.familyDAO.save(family);
-		
-		
-		List<Family> families = this.familyDAO.findAll();
+		family = this.familyDAO.save(family);
 		
 		
 		DoubleMissionary doubleMissionary = new DoubleMissionary();
@@ -109,12 +108,12 @@ public class ScheduleServlet extends HttpServlet {
 		Missionary missionary1 = new Missionary();
 		Missionary missionary2 = new Missionary();
 		
-		missionary1.setName("Elder Lucas");
-		missionary1.setEmail("lucas@g.com");
+		missionary1.setName("Elder Albow");
+		missionary1.setEmail("ealbow@g.com");
 		missionary1.setDoubleMissionary(doubleMissionary);
 		
-		missionary2.setName("Elder Erick");
-		missionary2.setEmail("erick@g.com");
+		missionary2.setName("Elder Kdle");
+		missionary2.setEmail("akdle@g.com");
 		missionary2.setDoubleMissionary(doubleMissionary);
 		
 		missionaries.add(missionary1);
@@ -122,14 +121,18 @@ public class ScheduleServlet extends HttpServlet {
 		
 		doubleMissionary.setMissionaries(missionaries);
 		
-		doubleMissionaryDAO.save(doubleMissionary);
+		doubleMissionary = doubleMissionaryDAO.save(doubleMissionary);
+	
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = null;
+		try {
+			date = formatter.parse("22-10-2016");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		List<DoubleMissionary> doubleMissionaries = doubleMissionaryDAO.findAll();
-	
-	
-		Calendar desiredDate = Calendar.getInstance();
-		desiredDate.set(2016, 11, 5);
-		this.scheduleBusiness.saveSchedule(desiredDate, families.get(0), doubleMissionaries.get(0));
+		this.scheduleBusiness.saveSchedule(date, family, doubleMissionary);
 
 	}
 }

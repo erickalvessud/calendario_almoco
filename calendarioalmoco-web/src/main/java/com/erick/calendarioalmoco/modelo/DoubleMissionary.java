@@ -27,7 +27,7 @@ public class DoubleMissionary implements Serializable{
 	@OneToMany(mappedBy = "doubleMissionary", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Missionary> missionaries;
 	
-	@OneToMany(mappedBy = "doubleMissionary", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(mappedBy = "doubleMissionary")
 	private List<Schedule> schedules;
 
 	public DoubleMissionary(){

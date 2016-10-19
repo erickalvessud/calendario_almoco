@@ -32,11 +32,13 @@ public abstract class User implements Serializable{
 	@Column(name = "user_id")
 	protected Long userId;
 	
+	@Column(length = 255, nullable = false)
 	protected String name;
 	
+	@Column(length = 255, nullable = false)
 	protected String email;
 	
-	@Column(name = "user_type", length = 50)
+	@Column(name = "user_type", length = 50, nullable = false)
 	@Enumerated(EnumType.STRING)
 	protected UserType userType;
 	

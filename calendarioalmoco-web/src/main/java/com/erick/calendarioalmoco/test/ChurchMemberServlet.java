@@ -50,34 +50,23 @@ public class ChurchMemberServlet extends HttpServlet {
 	}
 	
 	private void removeChurchMember(){
-		ChurchMember churchMember;
-		try {
-			churchMember = this.churchMemberDAO.findById(1l);
-			this.churchMemberDAO.remove(churchMember);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChurchMember churchMember = this.churchMemberDAO.findById(1l);
+		this.churchMemberDAO.remove(churchMember);
 	}
 	private void editChurchMember(){
-		try {
-			ChurchMember churchMember = this.churchMemberDAO.findById(1l);
-			Family f = new Family();
-			f.setName("Familia Santos");
-			f.setAddress("Rua A, 152");
-			
-			FamilyAvailableWeekdays familyAvailableWeekdays = new FamilyAvailableWeekdays();
-			familyAvailableWeekdays.setFamily(f);
-			familyAvailableWeekdays.setSunday(1);
-			
-			f.setFamilyAvailableWeekdays(familyAvailableWeekdays);
-			
-			churchMember.setFamily(f);
-			this.churchMemberDAO.save(churchMember);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChurchMember churchMember = this.churchMemberDAO.findById(1l);
+		Family f = new Family();
+		f.setName("Familia Santos");
+		f.setAddress("Rua A, 152");
+		
+		FamilyAvailableWeekdays familyAvailableWeekdays = new FamilyAvailableWeekdays();
+		familyAvailableWeekdays.setFamily(f);
+		familyAvailableWeekdays.setSunday(1);
+		
+		f.setFamilyAvailableWeekdays(familyAvailableWeekdays);
+		
+		churchMember.setFamily(f);
+		this.churchMemberDAO.save(churchMember);
 	}
 	private void addChurchMember(){
 		ChurchMember churchMember = new ChurchMember();
@@ -92,12 +81,7 @@ public class ChurchMemberServlet extends HttpServlet {
 		phoneList.add(p);
 		churchMember.setPhones(phoneList);
 		churchMember.setUserType(UserType.MISSIONARY);
-		try {
-			churchMemberDAO.save(churchMember);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		churchMemberDAO.save(churchMember);
 	}
 
 	/**
