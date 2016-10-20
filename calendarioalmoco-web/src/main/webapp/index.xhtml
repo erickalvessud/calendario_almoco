@@ -1,19 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<f:loadBundle basename="resources.application" var="msg"/>
-
-<head>
-    <title><h:outputText value="#{msg.welcomeTitle}" /></title>
-</head>
-
-<body>
-<h3><h:outputText value="#{msg.welcomeHeading}" /></h3>
-<p><h:outputText value="#{msg.welcomeMessage}" /></p>
-</body>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="title">#{m['index.title']}</ui:insert></title>
+		<h:outputStylesheet library="css" name="sistema.css" />
+	</h:head>
+	
+	<body>
+		<p:ajaxStatus styleClass="ajax-status">
+			<f:facet name="start">
+				<h:graphicImage library="imagens" name="carregando.gif"/>
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value=""/>
+			</f:facet>
+		</p:ajaxStatus>
+		
+		<header>
+			<div style="float: left">
+				<h:link outcome="/home">
+					
+				</h:link>
+			</div>
+			<div style="float: right; margin-right: 110px">
+				<h:form style="display: inline-block">
+					<p:menubar styleClass="menu-sistema">
+						<p:menuitem value="login" outcome="/pages/login.xhtml"/>
+						<p:menuitem value="cadastre-se" />
+					</p:menubar>
+				</h:form>
+			</div>
+			<div style="clear: both"></div>
+		</header>
+		
+		<div id="global">
+			<div id="content">
+				
+				<ui:insert name="body-content"/>
+				
+			</div>
+		</div>
+		
+		<div style="clear:both;">
+			<p:separator style="margin-top: 20px;"/>
+		</div>
+		<footer>
+			&#174; Sistema Gerenciador de Refeições Missionárias
+		</footer>
+	</body>
 </html>
