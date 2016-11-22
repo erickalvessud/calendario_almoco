@@ -1,5 +1,6 @@
 package com.erick.calendarioalmoco.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import com.erick.calendarioalmoco.util.jpa.Transactional;
  * @author Erick Alves
  * @since 21-09-2016
  */
-public abstract class GenericDAO<E> {
+public abstract class GenericDAO<E> implements Serializable{
 	
 	protected EntityManager entityManager;
 	

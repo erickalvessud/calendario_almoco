@@ -17,8 +17,6 @@ import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.ChurchMember;
 import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
-import com.erick.calendarioalmoco.modelo.Phone;
-import com.erick.calendarioalmoco.modelo.PhoneType;
 import com.erick.calendarioalmoco.modelo.UserType;
 
 /**
@@ -57,7 +55,7 @@ public class ChurchMemberServlet extends HttpServlet {
 		ChurchMember churchMember = this.churchMemberDAO.findById(1l);
 		Family f = new Family();
 		f.setName("Familia Santos");
-		f.setAddress("Rua A, 152");
+		//f.setAddress("Rua A, 152");
 		
 		FamilyAvailableWeekdays familyAvailableWeekdays = new FamilyAvailableWeekdays();
 		familyAvailableWeekdays.setFamily(f);
@@ -72,14 +70,7 @@ public class ChurchMemberServlet extends HttpServlet {
 		ChurchMember churchMember = new ChurchMember();
 		churchMember.setName("Erick Alves");
 		churchMember.setEmail("ealves@gmail.com");
-		List<Phone> phoneList = new ArrayList<>();
-		Phone p = new Phone();
-		p.setAreaCode("11");
-		p.setPhoneNumber("985857474");
-		p.setPhoneType(PhoneType.MOBILE_PHONE);
-		p.setUser(churchMember);
-		phoneList.add(p);
-		churchMember.setPhones(phoneList);
+		churchMember.setPhone("12664");
 		churchMember.setUserType(UserType.MISSIONARY);
 		churchMemberDAO.save(churchMember);
 	}

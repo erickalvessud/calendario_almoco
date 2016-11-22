@@ -15,8 +15,6 @@ import javax.inject.Named;
 
 import com.erick.calendarioalmoco.business.DuplaMissionariaBusiness;
 import com.erick.calendarioalmoco.modelo.DoubleMissionary;
-import com.erick.calendarioalmoco.modelo.Phone;
-import com.erick.calendarioalmoco.modelo.PhoneType;
 
 @Named
 @ViewScoped
@@ -54,9 +52,5 @@ public class CadastroDuplaMissionariaBean implements Serializable{
 	}
 	public void setDuplaMissionaria(DoubleMissionary duplaMissionaria) {
 		this.duplaMissionaria = duplaMissionaria;
-	}
-	
-	public PhoneType[] getTipoTelefone() {
-		return PhoneType.values();
 	}
 }

@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+   	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+   	
+   	<p:panelGrid columns="1" styleClass="noBorders">
+    	<p:inputText styleClass="inputTextField" 
+    		value="#{registerUserMB.churchMemberVO.name}" 
+    		placeholder="#{m['register.new.family.user.name']}"/>
+    	
+    	<p:inputText styleClass="inputTextField"
+    		value="#{registerUserMB.churchMemberVO.email}" 
+    		placeholder="#{m['register.new.family.user.email']}"/>
+    	
+    	<p:password id="password" styleClass="inputTextField"
+    		value="#{registerUserMB.churchMemberVO.password}"
+    		placeholder="#{m['register.new.family.user.password']}" 
+    		 required="true">
+    	</p:password>
+    	
+    	<p:password id="confirmPassword" styleClass="inputTextField"
+    		placeholder="#{m['register.new.family.user.confirm.password']}" 
+    		required="true" match="password">
+    		<p:ajax event="keyup" process="password confirmPassword" update="messages"/>
+    	</p:password>
+    	
+    	<p:inputText id="familyName" styleClass="inputTextField" 
+    		value="#{registerUserMB.familyVO.name}"
+    		placeholder="#{m['register.new.family.name']}"/>
+    		
+    	<p:inputText id="familyStreet" styleClass="inputTextField" 
+    		value="#{registerUserMB.familyVO.address.street}"
+    		placeholder="#{m['register.new.family.address.street']}"/>
+    	
+    	<p:inputText id="familyCity" styleClass="inputTextField" 
+    		value="#{registerUserMB.familyVO.address.city}"
+    		placeholder="#{m['register.new.family.address.city']}"/>
+    		
+    	<p:inputText id="familyState" styleClass="inputTextField"
+    		value="#{registerUserMB.familyVO.address.state}"
+    		placeholder="#{m['register.new.family.address.state']}"/>
+    	
+    	<p:inputText id="familyZipCode" styleClass="inputTextField" 
+    		value="#{registerUserMB.familyVO.address.zipCode}"
+    		placeholder="#{m['register.new.family.address.zipcode']}"/>
+
+   		<p:outputLabel for="availableWeekdays" value="#{m['register.new.family.available.weekdays']}"/>
+   	
+    	<p:selectManyCheckbox id="availableWeekdays" 
+    		value="#{registerUserMB.familyVO.familyAvailableWeekdays}">
+    		<f:selectItems value="#{registerUserMB.daysOfTheWeek}"/>
+    	</p:selectManyCheckbox>
+
+    </p:panelGrid>
+</ui:composition>

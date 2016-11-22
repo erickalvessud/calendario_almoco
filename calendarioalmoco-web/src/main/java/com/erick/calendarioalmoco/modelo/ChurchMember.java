@@ -25,6 +25,7 @@ public class ChurchMember extends User {
 	public ChurchMember(){
 		super();
 		super.userType = UserType.CHURCH_MEMBER;
+		this.family = new Family();
 	}
 
 	/**

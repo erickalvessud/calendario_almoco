@@ -28,7 +28,7 @@ public class DoubleMissionary implements Serializable{
 	private List<Missionary> missionaries;
 	
 	@OneToMany(mappedBy = "doubleMissionary")
-	private List<Schedule> schedules;
+	private List<Appointment> appointments;
 
 	public DoubleMissionary(){
 		super();
@@ -66,17 +66,17 @@ public class DoubleMissionary implements Serializable{
 	/**
 	 * @return the schedules
 	 */
-	public List<Schedule> getSchedules() {
-		if (this.schedules == null){
-			this.schedules = new ArrayList<>();
+	public List<Appointment> getAppointments() {
+		if (this.appointments == null){
+			this.appointments = new ArrayList<>();
 		}
-		return schedules;
+		return appointments;
 	}
 
 	/**
 	 * @param schedules the schedules to set
 	 */
-	public void setSchedules(List<Schedule> schedules) {
-		this.schedules = schedules;
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 }

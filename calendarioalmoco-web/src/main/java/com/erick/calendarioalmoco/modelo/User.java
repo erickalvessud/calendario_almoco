@@ -38,12 +38,18 @@ public abstract class User implements Serializable{
 	@Column(length = 255, nullable = false)
 	protected String email;
 	
+	@Column(length = 255, nullable = false)
+	protected String password;
+
 	@Column(name = "user_type", length = 50, nullable = false)
 	@Enumerated(EnumType.STRING)
 	protected UserType userType;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	protected List<Phone> phones;
+	@Column(name = "phone", length = 11, nullable = true)
+	protected String phone;
+	
+	@Column(name = "phone2", length = 11, nullable = true)
+	protected String phone2;
 
 	/**
 	 * @return the userId
@@ -86,6 +92,20 @@ public abstract class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	/**
 	 * @return the userType
@@ -102,16 +122,30 @@ public abstract class User implements Serializable{
 	}
 
 	/**
-	 * @return the phones
+	 * @return the phone
 	 */
-	public List<Phone> getPhones() {
-		return phones;
+	public String getPhone() {
+		return phone;
 	}
 
 	/**
-	 * @param phones the phones to set
+	 * @param phone the phone to set
 	 */
-	public void setPhones(List<Phone> phones) {
-		this.phones = phones;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the phone2
+	 */
+	public String getPhone2() {
+		return phone2;
+	}
+
+	/**
+	 * @param phone2 the phone2 to set
+	 */
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
 	}
 }
