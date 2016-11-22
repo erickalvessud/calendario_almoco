@@ -1,10 +1,12 @@
 package com.erick.calendarioalmoco.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "family")
-public class Family {
+public class Family implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,8 @@ public class Family {
 	@Column(name = "name", length = 255, nullable = false)
 	private String name;
 	
-	private String address;
+	@Embedded
+	private Address address;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "id_family_available_weekdays")
@@ -37,7 +41,11 @@ public class Family {
 	private List<ChurchMember> churchMembers;
 	
 	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
-	private List<Schedule> schedules;
+	private List<Appointment> appointments;
+	
+	public Family(){
+		this.address = new Address();
+	}
 
 	/**
 	 * @return the familyId
@@ -70,14 +78,14 @@ public class Family {
 	/**
 	 * @return the address
 	 */
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
@@ -112,18 +120,18 @@ public class Family {
 	/**
 	 * @return the schedules
 	 */
-	public List<Schedule> getSchedules() {
-		if (this.schedules == null) {
-			this.schedules = new ArrayList<>();
+	public List<Appointment> getAppointments() {
+		if (this.appointments == null) {
+			this.appointments = new ArrayList<>();
 		}
-		return schedules;
+		return appointments;
 	}
 
 	/**
 	 * @param schedules the schedules to set
 	 */
-	public void setSchedules(List<Schedule> schedules) {
-		this.schedules = schedules;
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 
 	/* (non-Javadoc)

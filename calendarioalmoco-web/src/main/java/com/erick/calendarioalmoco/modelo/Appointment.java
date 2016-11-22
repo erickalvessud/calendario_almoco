@@ -15,12 +15,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "schedule")
-public class Schedule{
+@Table(name = "appointment")
+public class Appointment{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "schedule_id")
+	@Column(name = "appointment_id")
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -113,7 +113,7 @@ public class Schedule{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Schedule other = (Schedule) obj;
+		Appointment other = (Appointment) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

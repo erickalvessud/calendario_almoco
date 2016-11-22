@@ -7,26 +7,26 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.erick.calendarioalmoco.dao.ScheduleDAO;
+import com.erick.calendarioalmoco.dao.AppointmentDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
-import com.erick.calendarioalmoco.modelo.Schedule;
+import com.erick.calendarioalmoco.modelo.Appointment;
 
 /**
  * This class manages all business rules for lunch schedule.
  * @author Erick Alves
  */
-public class ScheduleBusiness implements Serializable{
+public class AppointmentBusiness implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private ScheduleDAO scheduleDAO;
+	private AppointmentDAO appointmentDAO;
 
 	/**
-	 * Save a schedule of lunch. This method returns without do nothing if any
+	 * Save a appointment of lunch. This method returns without do nothing if any
 	 * parameters passed to it was null.
 	 * 
 	 * @param date
@@ -44,7 +44,7 @@ public class ScheduleBusiness implements Serializable{
 	 *             <li>If the schedule date is less than the current date.</li>
 	 *             </ul>
 	 */
-	public void saveSchedule(Date date, Family family, DoubleMissionary doubleMissionary)
+	public void saveAppointments(Date date, Family family, DoubleMissionary doubleMissionary)
 			throws BusinessException {
 		if (date == null || family == null || doubleMissionary == null) {
 			return;
@@ -53,8 +53,8 @@ public class ScheduleBusiness implements Serializable{
 		Calendar scheduleDate = Calendar.getInstance();
 		scheduleDate.setTime(date);
 
-		if (!this.isValidScheduleDate(scheduleDate)) {
-			throw new BusinessException("Desired date for schedule cannot be less than current date");
+		if (!this.isValidAppointmentDate(scheduleDate)) {
+			throw new BusinessException("Desired date for appointment cannot be less than current date");
 		}
 
 		int dayOfWeek = scheduleDate.get(Calendar.DAY_OF_WEEK);
@@ -62,15 +62,15 @@ public class ScheduleBusiness implements Serializable{
 		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
 
 		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
-			Schedule schedule = new Schedule();
-			schedule.setDate(date);
-			schedule.setFamily(family);
-			schedule.setDoubleMissionary(doubleMissionary);
+			Appointment appointments = new Appointment();
+			appointments.setDate(date);
+			appointments.setFamily(family);
+			appointments.setDoubleMissionary(doubleMissionary);
 
-			family.getSchedules().add(schedule);
-			doubleMissionary.getSchedules().add(schedule);
+			family.getAppointments().add(appointments);
+			doubleMissionary.getAppointments().add(appointments);
 
-			this.scheduleDAO.save(schedule);
+			this.appointmentDAO.save(appointments);
 		} else {
 			throw new BusinessException("Day of week is not compatible with the day registed for this family");
 		}
@@ -79,13 +79,13 @@ public class ScheduleBusiness implements Serializable{
 	/**
 	 * Validade if this date is greater than current date.
 	 * 
-	 * @param scheduleDate
+	 * @param appointmentDate
 	 *            - Date which desire to validate.
 	 * @return true if this date is greater than current date or false
 	 *         otherwise.
 	 */
-	private boolean isValidScheduleDate(Calendar scheduleDate){
-		long desiredDate = scheduleDate.getTimeInMillis();
+	private boolean isValidAppointmentDate(Calendar appointmentDate){
+		long desiredDate = appointmentDate.getTimeInMillis();
 		long currentDate = Calendar.getInstance().getTimeInMillis();
 
 		return desiredDate > currentDate;

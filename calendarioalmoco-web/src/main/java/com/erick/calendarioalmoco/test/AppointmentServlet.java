@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.erick.calendarioalmoco.business.ScheduleBusiness;
+import com.erick.calendarioalmoco.business.AppointmentBusiness;
 import com.erick.calendarioalmoco.dao.DoubleMissionaryDAO;
 import com.erick.calendarioalmoco.dao.FamilyDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
@@ -29,8 +29,8 @@ import com.erick.calendarioalmoco.modelo.Missionary;
 /**
  * Servlet implementation class ScheduleServlet
  */
-@WebServlet("/ScheduleServlet")
-public class ScheduleServlet extends HttpServlet {
+@WebServlet("/AppointmentServlet")
+public class AppointmentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	@Inject
@@ -40,13 +40,12 @@ public class ScheduleServlet extends HttpServlet {
 	private DoubleMissionaryDAO doubleMissionaryDAO;
 	
 	@Inject
-	private ScheduleBusiness scheduleBusiness;
+	private AppointmentBusiness scheduleBusiness;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ScheduleServlet() {
+    public AppointmentServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -56,7 +55,7 @@ public class ScheduleServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		try {
-			saveSchedule();
+			saveAppointment();
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -71,10 +70,10 @@ public class ScheduleServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public void saveSchedule() throws BusinessException{
+	public void saveAppointment() throws BusinessException{
 		Family family = new Family();
 		family.setName("Smith's family");
-		family.setAddress("R. Zian, 5");
+		//family.setAddress("R. Zian, 5");
 		
 		List<ChurchMember> churchMembers = new ArrayList<>();
 		ChurchMember member1 = new ChurchMember();
@@ -132,7 +131,7 @@ public class ScheduleServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		this.scheduleBusiness.saveSchedule(date, family, doubleMissionary);
+		this.scheduleBusiness.saveAppointments(date, family, doubleMissionary);
 
 	}
 }
