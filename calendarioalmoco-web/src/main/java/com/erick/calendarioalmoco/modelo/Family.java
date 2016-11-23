@@ -44,6 +44,7 @@ public class Family implements Serializable{
 	private List<Appointment> appointments;
 	
 	public Family(){
+		
 	}
 
 	/**

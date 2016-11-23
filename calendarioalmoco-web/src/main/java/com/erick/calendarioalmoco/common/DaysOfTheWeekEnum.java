@@ -21,6 +21,7 @@ public enum DaysOfTheWeekEnum {
 	/**
 	 * @return the id
 	 */
+
 	public String getId() {
 		return id;
 	}
