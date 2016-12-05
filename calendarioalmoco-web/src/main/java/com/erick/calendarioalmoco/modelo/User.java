@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,6 +26,9 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type", 
 	discriminatorType = DiscriminatorType.CHAR, length = 1)
+@NamedQueries({
+	@NamedQuery(name = "User.findByEmailAndPwd", query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :pwd")
+})
 public abstract class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +40,7 @@ public abstract class User implements Serializable{
 	@Column(length = 255, nullable = false)
 	protected String name;
 	
-	@Column(length = 255, nullable = false)
+	@Column(length = 255, unique = true, nullable = false)
 	protected String email;
 	
 	@Column(length = 255, nullable = false)

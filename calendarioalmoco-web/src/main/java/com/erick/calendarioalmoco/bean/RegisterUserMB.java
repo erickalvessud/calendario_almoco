@@ -26,6 +26,8 @@ import com.erick.calendarioalmoco.vo.FamilyVO;
 @ViewScoped
 public class RegisterUserMB implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	private final String PAGE_LOGIN = "/pages/login.xhtml"; 
 
 	@Inject
 	private ChurchMemberDAO churchMemberDAO;
@@ -45,7 +47,7 @@ public class RegisterUserMB implements Serializable{
 		this.familyVO = new FamilyVO();
 	}
 	
-	public void doSave(){
+	public String doSave(){
 		ChurchMember churchMember = new ChurchMember();
 		churchMember.setName(this.churchMemberVO.getName());
 		churchMember.setEmail(this.churchMemberVO.getEmail());
@@ -107,6 +109,8 @@ public class RegisterUserMB implements Serializable{
 		this.familyVO = new FamilyVO();
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuário salvo com sucesso!"));
+		
+		return PAGE_LOGIN;
 	}
 
 	public List<SelectItem> getRegisterOptions(){

@@ -16,11 +16,12 @@
 			<p:panel id="loginPanel" header="#{m['label.login.title']}" style="margin-left:250px; width:500px;">
 				<h:panelGrid id="loginGrid" columns="2" cellpadding="5">                   
 		        	<h:outputLabel for="login" value="#{m['label.login']}" />
-		        	<p:inputText id="login" value="" label="#{m['label.login']}" required="true" />
+		        	<p:inputText id="login" value="#{loginMB.email}" 
+		        		label="#{m['label.login']}" required="true" />
 		        	<h:outputLabel for="password" value="#{m['label.password']}" />
-		        	<p:password id="password" value="" label="#{m['label.password']}" required="true" />
+		        	<p:password id="password" value="#{loginMB.password}" label="#{m['label.password']}" required="true" />
 		    	</h:panelGrid>
-		    	<p:commandButton update="loginGrid" value="#{m['label.enter']}" />
+		    	<p:commandButton update="loginGrid" action="#{loginMB.doLogin}" value="#{m['label.enter']}" />
 			</p:panel>
 		</h:form>	
     </ui:define>

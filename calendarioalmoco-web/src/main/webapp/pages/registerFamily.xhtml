@@ -19,13 +19,15 @@
     	<p:password id="password" styleClass="inputTextField"
     		value="#{registerUserMB.churchMemberVO.password}"
     		placeholder="#{m['register.new.family.user.password']}" 
+    		match="confirmPassword"
     		 required="true">
     	</p:password>
     	
     	<p:password id="confirmPassword" styleClass="inputTextField"
+    		value="#{registerUserMB.churchMemberVO.confirmPassword}"
     		placeholder="#{m['register.new.family.user.confirm.password']}" 
-    		required="true" match="password">
-    		<p:ajax event="keyup" process="password confirmPassword" update="messages"/>
+    		required="true">
+    		<p:ajax event="blur" process="password confirmPassword" update="messages"/>
     	</p:password>
     	
     	<p:inputText id="familyName" styleClass="inputTextField" 

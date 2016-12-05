@@ -1,5 +1,7 @@
 package com.erick.calendarioalmoco.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -19,4 +21,12 @@ public class ChurchMemberDAO extends GenericDAO<ChurchMember>{
 		return ChurchMember.class;
 	}
 
+	/**
+	 * Returns ChurchMembers who has this week day available.
+	 * @param weekDay
+	 * @return
+	 */
+	public List<ChurchMember> findByAvailableWeekDay(int weekDay){
+		return null;
+	}
 }

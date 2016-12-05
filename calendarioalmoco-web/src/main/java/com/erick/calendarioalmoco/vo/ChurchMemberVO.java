@@ -9,6 +9,8 @@ public class ChurchMemberVO {
 	private String email;
 	
 	private String password;
+	
+	private String confirmPassword;
 
 	private String phone;
 	
@@ -69,6 +71,21 @@ public class ChurchMemberVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * @return the confirmPassword
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * @param confirmPassword the confirmPassword to set
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 
 	/**
 	 * @return the phone
