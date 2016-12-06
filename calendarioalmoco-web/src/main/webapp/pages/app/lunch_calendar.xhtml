@@ -10,15 +10,70 @@
 
 	<ui:define name="body-content">
 		<h:form id="lunchCalendarForm">
-			<p:schedule value="#{lunchCalendarMB.eventModel}" timeZone="GMT+2">
-				<p:ajax event="dateSelect" listener="#{lunchCalendarMB.onDateSelect}" />
+			<p:schedule id="lunchSchedule" value="#{lunchCalendarMB.eventModel}" 
+				locale="pt" timeZone="GMT-3" widgetVar="lunchScheduleObj">
+				<p:ajax event="dateSelect" listener="#{lunchCalendarMB.onDateSelect}" update="churchMembersList" oncomplete="PF('dateSelectedEventDialog').show();"/>
 			</p:schedule>
 		
 		
 			<p:dialog widgetVar="dateSelectedEventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+				<p:dataTable id="churchMembersList" 
+					value="#{lunchCalendarMB.churchMembers}" var="members"
+					selectionMode="single"
+					selection="#{lunchCalendarMB.churchMemberSelected}"
+					rowKey="#{members.userId}">
+					
+					<p:ajax event="rowDblselect" listener="#{lunchCalendarMB.onRowDblClckSelect}"
+						oncomplete="PF('lunchScheduleObj').update();PF('dateSelectedEventDialog').hide();" />
 				
+					<p:column headerText="#{m['lunch.calendar.column.churchmember.name']}">
+						<h:outputText value="#{members.name}"/>
+					</p:column>
+					
+					<p:column headerText="#{m['lunch.calendar.column.churchmember.email']}">
+						<h:outputText value="#{members.email}"/>
+					</p:column>
+					
+					<p:column headerText="#{m['lunch.calendar.column.churchmember.family.name']}">
+						<h:outputText value="#{members.family.name}"/>
+					</p:column>
+					
+					<p:column headerText="#{m['lunch.calendar.column.churchmember.family.address']}">
+						<h:outputText value="#{members.family.address.street}"/>
+					</p:column>
+					
+				</p:dataTable>
 			</p:dialog>
 		
 		</h:form>
+		<script type="text/javascript">
+			PrimeFaces.locales['pt'] = {
+		            closeText: 'Fechar',
+		            prevText: 'Anterior',
+		            nextText: 'Próximo',
+		            currentText: 'Começo',
+		            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Des'],
+		            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+		            dayNamesMin: ['D','S','T','Q','Q','S','S'],
+		            weekHeader: 'Semana',
+		            firstDay: 1,
+		            isRTL: false,
+		            showMonthAfterYear: false,
+		            yearSuffix: '',
+		            timeOnlyTitle: 'Só Horas',
+		            timeText: 'Tempo',
+		            hourText: 'Hora',
+		            minuteText: 'Minuto',
+		            secondText: 'Segundo',
+		            currentText: 'Data Atual',
+		            ampm: false,
+		            month: 'Mês',
+		            week: 'Semana',
+		            day: 'Dia',
+		            allDayText : 'Todo Dia'
+		        };
+		</script>
 	</ui:define>
 </ui:composition>
