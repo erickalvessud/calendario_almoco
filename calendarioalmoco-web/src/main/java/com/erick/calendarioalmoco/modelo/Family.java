@@ -37,10 +37,10 @@ public class Family implements Serializable{
 	@JoinColumn(name = "id_family_available_weekdays")
 	private FamilyAvailableWeekdays familyAvailableWeekdays;
 	
-	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "family")
 	private List<ChurchMember> churchMembers;
 	
-	@OneToMany(mappedBy = "family", cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "family")
 	private List<Appointment> appointments;
 	
 	public Family(){

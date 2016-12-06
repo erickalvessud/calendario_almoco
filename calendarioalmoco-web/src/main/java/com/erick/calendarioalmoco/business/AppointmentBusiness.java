@@ -8,10 +8,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.erick.calendarioalmoco.dao.AppointmentDAO;
+import com.erick.calendarioalmoco.dao.DoubleMissionaryDAO;
+import com.erick.calendarioalmoco.dao.FamilyDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
+import com.erick.calendarioalmoco.util.jpa.Transactional;
 import com.erick.calendarioalmoco.modelo.Appointment;
 
 /**
@@ -24,6 +27,12 @@ public class AppointmentBusiness implements Serializable{
 	
 	@Inject
 	private AppointmentDAO appointmentDAO;
+	
+	@Inject
+	private FamilyDAO familyDAO;
+	
+	@Inject
+	private DoubleMissionaryDAO doubleMissionaryDAO;
 
 	/**
 	 * Save a appointment of lunch. This method returns without do nothing if any
@@ -44,6 +53,7 @@ public class AppointmentBusiness implements Serializable{
 	 *             <li>If the schedule date is less than the current date.</li>
 	 *             </ul>
 	 */
+	@Transactional
 	public void saveAppointments(Date date, Family family, DoubleMissionary doubleMissionary)
 			throws BusinessException {
 		if (date == null || family == null || doubleMissionary == null) {
@@ -62,6 +72,10 @@ public class AppointmentBusiness implements Serializable{
 		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
 
 		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
+			
+			family = this.familyDAO.findById(family.getFamilyId());
+			doubleMissionary = this.doubleMissionaryDAO.findById(doubleMissionary.getDoubleMissionaryId());
+			
 			Appointment appointments = new Appointment();
 			appointments.setDate(date);
 			appointments.setFamily(family);
@@ -75,6 +89,8 @@ public class AppointmentBusiness implements Serializable{
 			throw new BusinessException("Day of week is not compatible with the day registed for this family");
 		}
 	}
+	
+	
 	
 	/**
 	 * Validade if this date is greater than current date.
