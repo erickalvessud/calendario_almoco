@@ -48,7 +48,7 @@ public class LunchCalendarMB implements Serializable{
 	
 	public void onDateSelect(SelectEvent selectEvent){
 		Date dateSelected = (Date)selectEvent.getObject();
-		
+
 		this.event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject(), selectEvent.getObject());
 		
 		this.churchMembers = this.churchMemberBusiness.getChurchMembersAvailablesByDate(dateSelected);
@@ -85,7 +85,7 @@ public class LunchCalendarMB implements Serializable{
 		}
         this.event = new DefaultScheduleEvent();
 	}
-	
+
 	/**
 	 * @return the eventModel
 	 */
