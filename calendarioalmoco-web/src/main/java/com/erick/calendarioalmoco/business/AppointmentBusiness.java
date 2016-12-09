@@ -15,6 +15,7 @@ import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
 import com.erick.calendarioalmoco.util.jpa.Transactional;
+import com.erick.calendarioalmoco.vo.FamilyVO;
 import com.erick.calendarioalmoco.modelo.Appointment;
 
 /**
@@ -40,7 +41,7 @@ public class AppointmentBusiness implements Serializable{
 	 * 
 	 * @param date
 	 *            - Date to the lunch.
-	 * @param family
+	 * @param familyVO
 	 *            - Family who will offer the lunch.
 	 * @param doubleMissionary
 	 *            - Double missionary who this lunch is schedule to.
@@ -54,9 +55,9 @@ public class AppointmentBusiness implements Serializable{
 	 *             </ul>
 	 */
 	@Transactional
-	public void saveAppointments(Date date, Family family, DoubleMissionary doubleMissionary)
+	public void saveAppointments(Date date, FamilyVO familyVO, DoubleMissionary doubleMissionary)
 			throws BusinessException {
-		if (date == null || family == null || doubleMissionary == null) {
+		if (date == null || familyVO == null || doubleMissionary == null) {
 			return;
 		}
 		
@@ -69,11 +70,12 @@ public class AppointmentBusiness implements Serializable{
 
 		int dayOfWeek = scheduleDate.get(Calendar.DAY_OF_WEEK);
 		
+		Family family = this.familyDAO.findById(familyVO.getFamilyId());
+		
 		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
 
 		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
 			
-			family = this.familyDAO.findById(family.getFamilyId());
 			doubleMissionary = this.doubleMissionaryDAO.findById(doubleMissionary.getDoubleMissionaryId());
 			
 			Appointment appointments = new Appointment();

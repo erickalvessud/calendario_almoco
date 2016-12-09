@@ -10,6 +10,9 @@
 
 	<ui:define name="body-content">
 		<h:form id="lunchCalendarForm">
+			
+			<p:selectOneMenu value="#{lunchCalendarMB.doubleMissionarySelected"/>
+		
 			<p:schedule id="lunchSchedule" value="#{lunchCalendarMB.eventModel}" 
 				locale="pt" timeZone="GMT-3" widgetVar="lunchScheduleObj">
 				<p:ajax event="dateSelect" listener="#{lunchCalendarMB.onDateSelect}" update="churchMembersList" oncomplete="PF('dateSelectedEventDialog').show();"/>
@@ -18,7 +21,7 @@
 		
 			<p:dialog widgetVar="dateSelectedEventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
 				<p:dataTable id="churchMembersList" 
-					value="#{lunchCalendarMB.churchMembers}" var="members"
+					value="#{lunchCalendarMB.churchMembersVO}" var="members"
 					selectionMode="single"
 					selection="#{lunchCalendarMB.churchMemberSelected}"
 					rowKey="#{members.userId}">

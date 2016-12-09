@@ -131,7 +131,7 @@ public class AppointmentServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		this.scheduleBusiness.saveAppointments(date, family, doubleMissionary);
+		//this.scheduleBusiness.saveAppointments(date, family, doubleMissionary);
 
 	}
 }

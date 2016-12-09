@@ -20,7 +20,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "appointment")
 @NamedQueries({
-	@NamedQuery(name = "Appointment.findByDate", query = "SELECT a FROM Appointment a WHERE a.date = :date")
+	@NamedQuery(name = "Appointment.findByDate", query = "SELECT a FROM Appointment a WHERE a.date = :date"),
+	@NamedQuery(name = "Appointment.countByDate", query = "SELECT COUNT(a) FROM Appointment a WHERE a.date = :date")
 })
 public class Appointment implements Serializable{
 	private static final long serialVersionUID = 1L;

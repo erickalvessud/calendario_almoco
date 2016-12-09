@@ -24,6 +24,8 @@ import com.erick.calendarioalmoco.dao.DoubleMissionaryDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.ChurchMember;
 import com.erick.calendarioalmoco.modelo.DoubleMissionary;
+import com.erick.calendarioalmoco.vo.ChurchMemberVO;
+import com.erick.calendarioalmoco.vo.DoubleMissionaryVO;
 
 @Named
 @ViewScoped
@@ -38,24 +40,27 @@ public class LunchCalendarMB implements Serializable{
 	private ScheduleModel eventModel = new DefaultScheduleModel();
 	private ScheduleEvent event = new DefaultScheduleEvent();
 	
-	private List<ChurchMember> churchMembers;
+	private List<ChurchMemberVO> churchMembersVO;
 	
-	private ChurchMember churchMemberSelected;
-
+	private ChurchMemberVO churchMemberVOSelected;
+	
+	private DoubleMissionaryVO doubleMissionarySelected;
+	
 	public LunchCalendarMB(){
-		this.churchMemberSelected = new ChurchMember();
+		this.churchMemberVOSelected = new ChurchMemberVO();
+		this.doubleMissionarySelected = new DoubleMissionaryVO();
 	}
 	
 	public void onDateSelect(SelectEvent selectEvent){
 		Date dateSelected = (Date)selectEvent.getObject();
-		
+
 		this.event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject(), selectEvent.getObject());
 		
-		this.churchMembers = this.churchMemberBusiness.getChurchMembersAvailablesByDate(dateSelected);
+		this.churchMembersVO = this.churchMemberBusiness.getChurchMembersAvailablesByDate(dateSelected);
 	}
 	
 	public void onRowDblClckSelect(final SelectEvent event) throws BusinessException {
-		this.churchMemberSelected = (ChurchMember) event.getObject();
+		this.churchMemberVOSelected = (ChurchMemberVO) event.getObject();
 		this.addAppointment();
 	}
 	
@@ -69,12 +74,12 @@ public class LunchCalendarMB implements Serializable{
 		// teste ate construir o cadastro de duplas missionarias
 		List<DoubleMissionary> doubleMissionaries = doubleMissionaryDAO.findAll();
 		
-		this.appointmentBusiness.saveAppointments((Date)event.getData(), this.churchMemberSelected.getFamily(), doubleMissionaries.get(0));
+		this.appointmentBusiness.saveAppointments((Date)event.getData(), this.churchMemberVOSelected.getFamilyVO(), doubleMissionaries.get(0));
 		
 		StringBuilder sb = new StringBuilder();  
-		sb.append(this.churchMemberSelected.getName());
+		sb.append(this.churchMemberVOSelected.getName());
 		sb.append("\n");
-		sb.append(this.churchMemberSelected.getFamily().getAddress().getStreet());
+		sb.append(this.churchMemberVOSelected.getFamilyVO().getAddress().getStreet());
 		
 		event.setTitle(sb.toString());
 		
@@ -85,7 +90,7 @@ public class LunchCalendarMB implements Serializable{
 		}
         this.event = new DefaultScheduleEvent();
 	}
-	
+
 	/**
 	 * @return the eventModel
 	 */
@@ -99,31 +104,47 @@ public class LunchCalendarMB implements Serializable{
 	public void setEventModel(ScheduleModel eventModel) {
 		this.eventModel = eventModel;
 	}
+	
+	/**
+	 * @return the churchMembersVO
+	 */
+	public List<ChurchMemberVO> getChurchMembersVO() {
+		return churchMembersVO;
+	}
 
 	/**
-	 * @return the churchMembers
+	 * @param churchMembersVO the churchMembersVO to set
 	 */
-	public List<ChurchMember> getChurchMembers() {
-		return churchMembers;
-	}
-	/**
-	 * @param churchMembers the churchMembers to set
-	 */
-	public void setChurchMembers(List<ChurchMember> churchMembers) {
-		this.churchMembers = churchMembers;
+	public void setChurchMembersVO(List<ChurchMemberVO> churchMembersVO) {
+		this.churchMembersVO = churchMembersVO;
 	}
 	
 	/**
-	 * @return the churchMemberSelected
+	 * @return the churchMemberVOSelected
 	 */
-	public ChurchMember getChurchMemberSelected() {
-		return churchMemberSelected;
+	public ChurchMemberVO getChurchMemberVOSelected() {
+		return churchMemberVOSelected;
 	}
 
 	/**
-	 * @param churchMemberSelected the churchMemberSelected to set
+	 * @param churchMemberVOSelected the churchMemberVOSelected to set
 	 */
-	public void setChurchMemberSelected(ChurchMember churchMemberSelected) {
-		this.churchMemberSelected = churchMemberSelected;
+	public void setChurchMemberVOSelected(ChurchMemberVO churchMemberVOSelected) {
+		this.churchMemberVOSelected = churchMemberVOSelected;
 	}
+
+	/**
+	 * @return the doubleMissionarySelected
+	 */
+	public DoubleMissionaryVO getDoubleMissionarySelected() {
+		return doubleMissionarySelected;
+	}
+
+	/**
+	 * @param doubleMissionarySelected the doubleMissionarySelected to set
+	 */
+	public void setDoubleMissionarySelected(DoubleMissionaryVO doubleMissionarySelected) {
+		this.doubleMissionarySelected = doubleMissionarySelected;
+	}
+
 }

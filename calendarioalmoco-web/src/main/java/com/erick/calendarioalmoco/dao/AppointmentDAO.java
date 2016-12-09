@@ -30,4 +30,10 @@ public class AppointmentDAO extends GenericDAO<Appointment>{
 		query.setParameter("date", date);
 		return query.getResultList();
 	}
+	
+	public int countByDate(Date date){
+		TypedQuery<Integer> query = this.entityManager.createNamedQuery("Appointment.countByDate", Integer.class);
+		query.setParameter("date", date);
+		return query.getSingleResult().intValue();
+	}
 }

@@ -1,6 +1,6 @@
 package com.erick.calendarioalmoco.vo;
 
-public class ChurchMemberVO {
+public class MissionaryVO {
 
 	private Long userId;
 
@@ -15,8 +15,6 @@ public class ChurchMemberVO {
 	private String phone;
 	
 	private String phone2;
-	
-	private FamilyVO familyVO;
 
 	/**
 	 * @return the userId
@@ -88,7 +86,6 @@ public class ChurchMemberVO {
 		this.confirmPassword = confirmPassword;
 	}
 
-
 	/**
 	 * @return the phone
 	 */
@@ -115,28 +112,5 @@ public class ChurchMemberVO {
 	 */
 	public void setPhone2(String phone2) {
 		this.phone2 = phone2;
-	}	
-
-	/**
-	 * @return the familyVO
-	 */
-	public FamilyVO getFamilyVO() {
-		return familyVO;
-	}
-
-	/**
-	 * @param familyVO the familyVO to set
-	 */
-	public void setFamilyVO(FamilyVO familyVO) {
-		this.familyVO = familyVO;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ChurchMemberVO [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", confirmPassword=" + confirmPassword + ", phone=" + phone + ", phone2=" + phone2 + "]";
 	}
 }
