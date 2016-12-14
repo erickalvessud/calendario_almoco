@@ -55,7 +55,7 @@ public class LunchCalendarMB implements Serializable{
 		Date dateSelected = (Date)selectEvent.getObject();
 
 		this.event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject(), selectEvent.getObject());
-		
+
 		this.churchMembersVO = this.churchMemberBusiness.getChurchMembersAvailablesByDate(dateSelected);
 	}
 	
@@ -73,7 +73,7 @@ public class LunchCalendarMB implements Serializable{
 		
 		// teste ate construir o cadastro de duplas missionarias
 		List<DoubleMissionary> doubleMissionaries = doubleMissionaryDAO.findAll();
-		
+
 		this.appointmentBusiness.saveAppointments((Date)event.getData(), this.churchMemberVOSelected.getFamilyVO(), doubleMissionaries.get(0));
 		
 		StringBuilder sb = new StringBuilder();  
@@ -146,5 +146,4 @@ public class LunchCalendarMB implements Serializable{
 	public void setDoubleMissionarySelected(DoubleMissionaryVO doubleMissionarySelected) {
 		this.doubleMissionarySelected = doubleMissionarySelected;
 	}
-
 }
