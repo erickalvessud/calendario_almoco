@@ -24,8 +24,7 @@ import com.erick.calendarioalmoco.vo.FamilyVO;
 
 @Named
 @ViewScoped
-public class RegisterUserMB implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class RegisterUserMB extends BaseMB{	
 	
 	private final String PAGE_LOGIN = "/pages/login.xhtml"; 
 
@@ -57,15 +56,15 @@ public class RegisterUserMB implements Serializable{
 		
 		Family family = new Family();
 		family.setName(this.familyVO.getName());
-		family.getAddress().setStreet(this.familyVO.getAddress().getStreet());
-		family.getAddress().setCity(this.familyVO.getAddress().getCity());
-		family.getAddress().setState(this.familyVO.getAddress().getState());
-		family.getAddress().setZipCode(this.familyVO.getAddress().getZipCode());
+		family.getAddress().setStreet(this.familyVO.getAddressVO().getStreet());
+		family.getAddress().setCity(this.familyVO.getAddressVO().getCity());
+		family.getAddress().setState(this.familyVO.getAddressVO().getState());
+		family.getAddress().setZipCode(this.familyVO.getAddressVO().getZipCode());
 		
 		churchMember.setFamily(family);
 		family.getChurchMembers().add(churchMember);
 		
-		List<String> familyAvailableWeekdays = this.familyVO.getFamilyAvailableWeekdays();
+		List<String> familyAvailableWeekdays = this.familyVO.getFamilyAvailableWeekdaysList();
 		
 		if (familyAvailableWeekdays.contains(DaysOfTheWeekEnum.SUNDAY.getId())) {
 			family.getFamilyAvailableWeekdays().setSunday(1);
@@ -108,7 +107,7 @@ public class RegisterUserMB implements Serializable{
 		this.churchMemberVO = new ChurchMemberVO();
 		this.familyVO = new FamilyVO();
 		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usu√°rio salvo com sucesso!"));
+		this.showMessage(FacesMessage.SEVERITY_INFO, "Info",  "Usu·rio salvo com sucesso!");
 		
 		return PAGE_LOGIN;
 	}

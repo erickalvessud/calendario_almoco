@@ -11,11 +11,17 @@
 	<ui:define name="body-content">
 		<h:form id="lunchCalendarForm">
 			
-			<p:selectOneMenu value="#{lunchCalendarMB.doubleMissionarySelected"/>
+			<p:selectOneMenu id="duplaMissionariaCombo" value="#{lunchCalendarMB.doubleMissionaryVOSelected.doubleMissionaryId}" label="Dupla Missionaria">
+				<f:selectItem itemValue="#{null}" itemLabel="SELECIONE" />
+				<f:selectItems value="#{lunchCalendarMB.doubleMissionariesVOs}" var="doubleMissionary" 
+					itemValue="doubleMissionary.doubleMissionaryId" itemLabel="#{doubleMissionary.doubleMissionaryId}" />
+				<p:ajax event="change"/>
+			</p:selectOneMenu>
 		
 			<p:schedule id="lunchSchedule" value="#{lunchCalendarMB.eventModel}" 
 				locale="pt" timeZone="GMT-3" widgetVar="lunchScheduleObj">
-				<p:ajax event="dateSelect" listener="#{lunchCalendarMB.onDateSelect}" update="churchMembersList" oncomplete="PF('dateSelectedEventDialog').show();"/>
+				<p:ajax event="dateSelect" listener="#{lunchCalendarMB.onDateSelect}" 
+					update="churchMembersList" oncomplete="PF('dateSelectedEventDialog').show();"/>
 			</p:schedule>
 		
 		
@@ -23,7 +29,7 @@
 				<p:dataTable id="churchMembersList" 
 					value="#{lunchCalendarMB.churchMembersVO}" var="members"
 					selectionMode="single"
-					selection="#{lunchCalendarMB.churchMemberSelected}"
+					selection="#{lunchCalendarMB.churchMemberVOSelected}"
 					rowKey="#{members.userId}">
 					
 					<p:ajax event="rowDblselect" listener="#{lunchCalendarMB.onRowDblClckSelect}"
@@ -38,11 +44,11 @@
 					</p:column>
 					
 					<p:column headerText="#{m['lunch.calendar.column.churchmember.family.name']}">
-						<h:outputText value="#{members.family.name}"/>
+						<h:outputText value="#{members.familyVO.name}"/>
 					</p:column>
 					
 					<p:column headerText="#{m['lunch.calendar.column.churchmember.family.address']}">
-						<h:outputText value="#{members.family.address.street}"/>
+						<h:outputText value="#{members.familyVO.addressVO.street}"/>
 					</p:column>
 					
 				</p:dataTable>

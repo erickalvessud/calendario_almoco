@@ -17,6 +17,10 @@ public class ChurchMemberVO {
 	private String phone2;
 	
 	private FamilyVO familyVO;
+	
+	public ChurchMemberVO(){
+		this.familyVO = new FamilyVO();
+	}
 
 	/**
 	 * @return the userId

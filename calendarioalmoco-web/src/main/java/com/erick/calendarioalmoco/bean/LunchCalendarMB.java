@@ -8,6 +8,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,6 +23,7 @@ import org.primefaces.model.ScheduleModel;
 
 import com.erick.calendarioalmoco.business.AppointmentBusiness;
 import com.erick.calendarioalmoco.business.ChurchMemberBusiness;
+import com.erick.calendarioalmoco.business.DoubleMissionaryBusiness;
 import com.erick.calendarioalmoco.dao.DoubleMissionaryDAO;
 import com.erick.calendarioalmoco.exception.BusinessException;
 import com.erick.calendarioalmoco.modelo.ChurchMember;
@@ -29,13 +33,16 @@ import com.erick.calendarioalmoco.vo.DoubleMissionaryVO;
 
 @Named
 @ViewScoped
-public class LunchCalendarMB implements Serializable{
+public class LunchCalendarMB extends BaseMB {
 	
 	@Inject
 	private ChurchMemberBusiness churchMemberBusiness;
 	
 	@Inject
 	private AppointmentBusiness appointmentBusiness;
+	
+	@Inject
+	private DoubleMissionaryBusiness doubleMissionaryBusiness;
 	
 	private ScheduleModel eventModel = new DefaultScheduleModel();
 	private ScheduleEvent event = new DefaultScheduleEvent();
@@ -44,11 +51,23 @@ public class LunchCalendarMB implements Serializable{
 	
 	private ChurchMemberVO churchMemberVOSelected;
 	
-	private DoubleMissionaryVO doubleMissionarySelected;
+	List<DoubleMissionaryVO> doubleMissionariesVOs;
+	
+	private DoubleMissionaryVO doubleMissionaryVOSelected;
 	
 	public LunchCalendarMB(){
 		this.churchMemberVOSelected = new ChurchMemberVO();
-		this.doubleMissionarySelected = new DoubleMissionaryVO();
+		this.doubleMissionaryVOSelected = new DoubleMissionaryVO();
+	}
+	
+	@PostConstruct
+	public void init(){
+		try {
+			this.doubleMissionariesVOs = this.doubleMissionaryBusiness.findAllDoubleMissionary();
+		} catch (BusinessException e) {
+			this.showMessage(FacesMessage.SEVERITY_ERROR, "", e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void onDateSelect(SelectEvent selectEvent){
@@ -64,22 +83,16 @@ public class LunchCalendarMB implements Serializable{
 		this.addAppointment();
 	}
 	
-	@Inject
-	private DoubleMissionaryDAO doubleMissionaryDAO;
-	
 	private void addAppointment() throws BusinessException{
 		
 		DefaultScheduleEvent event = (DefaultScheduleEvent) this.event;
-		
-		// teste ate construir o cadastro de duplas missionarias
-		List<DoubleMissionary> doubleMissionaries = doubleMissionaryDAO.findAll();
 
-		this.appointmentBusiness.saveAppointments((Date)event.getData(), this.churchMemberVOSelected.getFamilyVO(), doubleMissionaries.get(0));
+		this.appointmentBusiness.saveAppointments((Date)event.getData(), this.churchMemberVOSelected.getFamilyVO(), this.doubleMissionaryVOSelected);
 		
 		StringBuilder sb = new StringBuilder();  
 		sb.append(this.churchMemberVOSelected.getName());
 		sb.append("\n");
-		sb.append(this.churchMemberVOSelected.getFamilyVO().getAddress().getStreet());
+		sb.append(this.churchMemberVOSelected.getFamilyVO().getAddressVO().getStreet());
 		
 		event.setTitle(sb.toString());
 		
@@ -134,16 +147,30 @@ public class LunchCalendarMB implements Serializable{
 	}
 
 	/**
-	 * @return the doubleMissionarySelected
+	 * @return the doubleMissionaryVOSelected
 	 */
-	public DoubleMissionaryVO getDoubleMissionarySelected() {
-		return doubleMissionarySelected;
+	public DoubleMissionaryVO getDoubleMissionaryVOSelected() {
+		return doubleMissionaryVOSelected;
 	}
 
 	/**
-	 * @param doubleMissionarySelected the doubleMissionarySelected to set
+	 * @param doubleMissionaryVOSelected the doubleMissionaryVOSelected to set
 	 */
-	public void setDoubleMissionarySelected(DoubleMissionaryVO doubleMissionarySelected) {
-		this.doubleMissionarySelected = doubleMissionarySelected;
+	public void setDoubleMissionaryVOSelected(DoubleMissionaryVO doubleMissionaryVOSelected) {
+		this.doubleMissionaryVOSelected = doubleMissionaryVOSelected;
+	}
+
+	/**
+	 * @return the doubleMissionariesVOs
+	 */
+	public List<DoubleMissionaryVO> getDoubleMissionariesVOs() {
+		return doubleMissionariesVOs;
+	}
+
+	/**
+	 * @param doubleMissionariesVOs the doubleMissionariesVOs to set
+	 */
+	public void setDoubleMissionariesVOs(List<DoubleMissionaryVO> doubleMissionariesVOs) {
+		this.doubleMissionariesVOs = doubleMissionariesVOs;
 	}
 }

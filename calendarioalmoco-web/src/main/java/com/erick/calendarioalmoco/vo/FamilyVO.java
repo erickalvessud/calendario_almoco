@@ -9,13 +9,13 @@ public class FamilyVO {
 	
 	private String name;
 	
-	private AddressVO address;
+	private AddressVO addressVO;
 
-	private List<String> familyAvailableWeekdays;
+	private List<String> familyAvailableWeekdaysList;
 	
 	public FamilyVO() {
-		this.address = new AddressVO();
-		this.familyAvailableWeekdays = new ArrayList<>();
+		this.addressVO = new AddressVO();
+		this.familyAvailableWeekdaysList = new ArrayList<>();
 	}
 
 	/**
@@ -49,28 +49,28 @@ public class FamilyVO {
 	/**
 	 * @return the address
 	 */
-	public AddressVO getAddress() {
-		return address;
+	public AddressVO getAddressVO() {
+		return addressVO;
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param addressVO the address to set
 	 */
-	public void setAddress(AddressVO address) {
-		this.address = address;
+	public void setAddressVO(AddressVO addressVO) {
+		this.addressVO = addressVO;
 	}
 
 	/**
-	 * @return the familyAvailableWeekdays
+	 * @return the familyAvailableWeekdaysList
 	 */
-	public List<String> getFamilyAvailableWeekdays() {
-		return familyAvailableWeekdays;
+	public List<String> getFamilyAvailableWeekdaysList() {
+		return familyAvailableWeekdaysList;
 	}
 
 	/**
-	 * @param familyAvailableWeekdays the familyAvailableWeekdays to set
+	 * @param familyAvailableWeekdaysList the familyAvailableWeekdaysList to set
 	 */
-	public void setFamilyAvailableWeekdays(List<String> familyAvailableWeekdays) {
-		this.familyAvailableWeekdays = familyAvailableWeekdays;
+	public void setFamilyAvailableWeekdaysList(List<String> familyAvailableWeekdaysList) {
+		this.familyAvailableWeekdaysList = familyAvailableWeekdaysList;
 	}
 }

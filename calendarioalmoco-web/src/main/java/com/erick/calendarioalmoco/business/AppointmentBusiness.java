@@ -15,6 +15,7 @@ import com.erick.calendarioalmoco.modelo.DoubleMissionary;
 import com.erick.calendarioalmoco.modelo.Family;
 import com.erick.calendarioalmoco.modelo.FamilyAvailableWeekdays;
 import com.erick.calendarioalmoco.util.jpa.Transactional;
+import com.erick.calendarioalmoco.vo.DoubleMissionaryVO;
 import com.erick.calendarioalmoco.vo.FamilyVO;
 import com.erick.calendarioalmoco.modelo.Appointment;
 
@@ -43,7 +44,7 @@ public class AppointmentBusiness implements Serializable{
 	 *            - Date to the lunch.
 	 * @param familyVO
 	 *            - Family who will offer the lunch.
-	 * @param doubleMissionary
+	 * @param doubleMissionaryVO
 	 *            - Double missionary who this lunch is schedule to.
 	 * @throws BusinessException
 	 *             There are two cases that this method can throws a
@@ -55,9 +56,9 @@ public class AppointmentBusiness implements Serializable{
 	 *             </ul>
 	 */
 	@Transactional
-	public void saveAppointments(Date date, FamilyVO familyVO, DoubleMissionary doubleMissionary)
+	public void saveAppointments(Date date, FamilyVO familyVO, DoubleMissionaryVO doubleMissionaryVO)
 			throws BusinessException {
-		if (date == null || familyVO == null || doubleMissionary == null) {
+		if (date == null || familyVO == null || doubleMissionaryVO == null) {
 			return;
 		}
 		
@@ -71,13 +72,13 @@ public class AppointmentBusiness implements Serializable{
 		int dayOfWeek = scheduleDate.get(Calendar.DAY_OF_WEEK);
 		
 		Family family = this.familyDAO.findById(familyVO.getFamilyId());
+		DoubleMissionary doubleMissionary = this.doubleMissionaryDAO.findById(doubleMissionaryVO.getDoubleMissionaryId());
+		
 		
 		FamilyAvailableWeekdays familyAvailableWeekdays = family.getFamilyAvailableWeekdays();
 
 		if (this.isFamilyAvailableWeekdays(dayOfWeek, familyAvailableWeekdays)) {
-			
-			doubleMissionary = this.doubleMissionaryDAO.findById(doubleMissionary.getDoubleMissionaryId());
-			
+
 			Appointment appointments = new Appointment();
 			appointments.setDate(date);
 			appointments.setFamily(family);

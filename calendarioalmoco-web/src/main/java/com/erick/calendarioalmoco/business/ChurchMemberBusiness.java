@@ -50,7 +50,7 @@ public class ChurchMemberBusiness implements Serializable{
 			try {
 				BeanUtils.copyProperties(churchMemberVO, churchMember);				
 				BeanUtils.copyProperties(churchMemberVO.getFamilyVO(), churchMember.getFamily());
-				BeanUtils.copyProperties(churchMemberVO.getFamilyVO().getAddress(), churchMember.getFamily().getAddress());
+				BeanUtils.copyProperties(churchMemberVO.getFamilyVO().getAddressVO(), churchMember.getFamily().getAddress());
 				
 				churchMembersVO.add(churchMemberVO);
 			} catch (IllegalAccessException e) {
